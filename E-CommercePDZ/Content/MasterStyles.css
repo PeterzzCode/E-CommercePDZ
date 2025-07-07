@@ -1,0 +1,15 @@
+﻿body {
+    margin: 0;
+}
+head{
+    margin: 0;
+}
+#textoArriba {
+    text-align: center;
+    background-color: black;
+    color: white;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin: 0;
+    outline: none;
+}

@@ -67,12 +67,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Inicio.aspx" />
+    <Content Include="Content\MasterStyles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Inicio.aspx.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inicio.aspx.designer.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MiMaster.Master.cs">
+      <DependentUpon>MiMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MiMaster.Master.designer.cs">
+      <DependentUpon>MiMaster.Master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MiMaster.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
