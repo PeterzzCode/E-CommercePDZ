@@ -46,7 +46,7 @@
           </div>
         </div>
         <div>
-            <h2 class="titulo-nuevos-articulos">Nuevos Articulos</h2>
+            <h2 class="titulo-nuevos">Nuevos Articulos</h2>
         </div>
         <div id="carouselExampleDark" class="carousel carousel-dark slide">
           <div class="carousel-inner">
@@ -96,5 +96,36 @@
             <span class="visually-hidden">Siguiente</span>
           </button>
         </div>
-
+      </div>
+    <footer>
+        <div class="footer">
+            <div class="redes-sociales">
+                <div class="container text-center">
+                  <div class="row">
+                    <div class="col">
+                        <a href="Inicio.aspx">
+                           <img src="/Images/icon.png" class="logo-footer" alt="Logo" />
+                        </a>
+                    </div>
+                    <div class="col">
+                      <a href="Contacto.aspx">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/050/703/718/small/set-of-contact-us-button-hand-pointer-clicking-contact-us-web-buttons-png.png" class="contacto-footer" alt="Contacto" />
+                      </a>
+                    </div>
+                    <div class="col">
+                      <a href="https://w.app/pdz">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/500px-WhatsApp_icon.png" class="red" alt="WhatsApp" />
+                      </a>
+                      <a href="https://www.instagram.com/p.d.z__/">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png" class="red" alt="Instagram" />
+                      </a>
+                      <a href="https://www.facebook.com/pedroix.ariel.dominguez">
+                        <img src="https://images.vexels.com/content/223136/preview/facebook-icon-social-media-8dfafe.png" class="red" alt="Facebook" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </asp:Content>
