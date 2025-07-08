@@ -4,12 +4,72 @@
 head{
     margin: 0;
 }
+div{
+    border: none;
+}
 #textoArriba {
     text-align: center;
+    font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif;
     background-color: black;
     color: white;
     margin-left: 0px;
     margin-right: 0px;
     margin: 0;
     outline: none;
+}
+
+.btn-carrito {
+    width: 40px;
+    height: 40px;
+    background-color: #f8f9fa;
+    border: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.div-remera-blanca:hover img{
+    content: url("/Images/RemeraBlanca11.jpg");
+}
+.remera-blanca{
+    width:364px;
+    height:490.7px;
+
+}
+
+.div-remera-blanca2:hover img {
+    content: url("/Images/RemeraBlanca22.jpg");
+}
+
+.remera-blanca2 {
+    width: 364px;
+    height: 490.7px;
+}
+
+.div-remera-negra:hover img {
+    content: url("/Images/RemeraNegra11.jpg");
+}
+
+.remera-negra {
+    width: 364px;
+    height: 490.7px;
+}
+
+.div-remera-negra2:hover img {
+    content: url("/Images/RemeraNegra22.jpg");
+}
+
+.remera-negra2 {
+    width: 364px;
+    height: 490.7px;
+}
+
+.titulo-blancas {
+    text-align: center;
+    font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif;
+}
+
+.titulo-negras {
+    text-align: center;
+    font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif;
 }

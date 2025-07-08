@@ -4,7 +4,8 @@
 
 <html>
 <head runat="server">
-    <title></title>
+    <title>PDZ</title>
+    <link rel="icon" href="\Images\icon.png" type="image/png" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <link href="\Content\MasterStyles.css" type= text/css; rel="stylesheet" />
@@ -20,27 +21,35 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="Inicio.aspx">Home</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Catalogo
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Remeras Oversize Blancas</a></li>
+                <li><a class="dropdown-item" href="Catalogo.aspx">Remeras Oversize Blancas</a></li>
                   <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Remeras Oversize Negras</a></li>
+                <li><a class="dropdown-item" href="Catalogo.aspx">Remeras Oversize Negras</a></li>
               </ul>
             </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Contacto</a>
+                <a class="nav-link" href="Contacto.aspx">Contacto</a>
               </li>
           </ul>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"/>
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
           </form>
         </div>
+           <div class="btn-carrito">
+               <a href="#">
+                   <img src="\Images\carrito.png" class="btn-carrito" />
+               </a>
+                 
+               
+           </div>
+           
       </div>
     </nav>
     <form id="form1" runat="server">
