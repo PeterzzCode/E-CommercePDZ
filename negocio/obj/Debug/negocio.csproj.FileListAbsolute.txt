@@ -1,0 +1,11 @@
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\negocio\bin\Debug\negocio.dll
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\negocio\bin\Debug\negocio.pdb
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\negocio\bin\Debug\dominio.dll
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\negocio\bin\Debug\dominio.pdb
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\negocio\obj\Debug\negocio.csproj.AssemblyReference.cache
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\negocio\obj\Debug\negocio.csproj.CoreCompileInputs.cache
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\negocio\obj\Debug\negocio.csproj.Up2Date
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\negocio\obj\Debug\negocio.dll
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\negocio\obj\Debug\negocio.pdb
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\negocio\bin\Debug\acceso-datos.dll
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\negocio\bin\Debug\acceso-datos.pdb

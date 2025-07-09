@@ -1,0 +1,6 @@
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\dominio\bin\Debug\dominio.dll
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\dominio\bin\Debug\dominio.pdb
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\dominio\obj\Debug\dominio.csproj.AssemblyReference.cache
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\dominio\obj\Debug\dominio.csproj.CoreCompileInputs.cache
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\dominio\obj\Debug\dominio.dll
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\dominio\obj\Debug\dominio.pdb

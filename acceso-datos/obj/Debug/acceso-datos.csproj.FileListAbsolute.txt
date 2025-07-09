@@ -1,0 +1,6 @@
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\acceso-datos\bin\Debug\acceso-datos.dll
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\acceso-datos\bin\Debug\acceso-datos.pdb
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\acceso-datos\obj\Debug\acceso-datos.csproj.AssemblyReference.cache
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\acceso-datos\obj\Debug\acceso-datos.csproj.CoreCompileInputs.cache
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\acceso-datos\obj\Debug\acceso-datos.dll
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\acceso-datos\obj\Debug\acceso-datos.pdb
