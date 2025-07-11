@@ -44,7 +44,9 @@
     <Compile Include="Color.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Remera.cs" />
+    <Compile Include="Stock.cs" />
     <Compile Include="Talle.cs" />
+    <Compile Include="UrlImagen.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
