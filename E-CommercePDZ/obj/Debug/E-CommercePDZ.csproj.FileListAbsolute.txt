@@ -57,3 +57,9 @@ C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\obj\Debug\E-Commerce
 C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\obj\Debug\E-Commer.0FF10ED7.Up2Date
 C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\obj\Debug\E-CommercePDZ.dll
 C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\obj\Debug\E-CommercePDZ.pdb
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\bin\acceso-datos.dll
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\bin\dominio.dll
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\bin\negocio.dll
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\bin\acceso-datos.pdb
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\bin\dominio.pdb
+C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\bin\negocio.pdb

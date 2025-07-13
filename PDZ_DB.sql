@@ -113,17 +113,31 @@ END
 
 go
 
-INSERT INTO UrlImagen(IdRemera, UrlImagen) VALUES (1, '');
-INSERT INTO UrlImagen(IdRemera, UrlImagen) VALUES (1, '');
-INSERT INTO UrlImagen(IdRemera, UrlImagen) VALUES (2, '');
-INSERT INTO UrlImagen(IdRemera, UrlImagen) VALUES (2, '');
-INSERT INTO UrlImagen(IdRemera, UrlImagen) VALUES (3, '');
-INSERT INTO UrlImagen(IdRemera, UrlImagen) VALUES (3, '');
-INSERT INTO UrlImagen(IdRemera, UrlImagen) VALUES (4, '');
-INSERT INTO UrlImagen(IdRemera, UrlImagen) VALUES (4, '');
-INSERT INTO UrlImagen(IdRemera, UrlImagen) VALUES (5, '');
-INSERT INTO UrlImagen(IdRemera, UrlImagen) VALUES (5, '');
-INSERT INTO UrlImagen(IdRemera, UrlImagen) VALUES (6, '');
-INSERT INTO UrlImagen(IdRemera, UrlImagen) VALUES (6, '');
-INSERT INTO UrlImagen(IdRemera, UrlImagen) VALUES (7, '');
-INSERT INTO UrlImagen(IdRemera, UrlImagen) VALUES (7, '');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (1, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño1');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (1, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño1.1');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (2, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño2');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (2, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño2.2');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (3, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño3');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (3, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño3.3');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (4, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño4');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (4, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño4.4');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (5, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño5');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (5, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño5.5');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (6, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño6');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (6, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño6.6');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (7, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño7');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (7, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño7.7');
+
+SELECT 
+    R.Id AS Id, 
+    R.Nombre, 
+    R.Precio, 
+    U.Id AS IdUrlImagen, 
+    U.DescripcionUrlImagen, 
+    U.IdRemera 
+FROM Remera R
+JOIN UrlImagen U ON R.Id = U.IdRemera;
+
+UPDATE Remera
+SET Activo = 0
+WHERE Id = 7;

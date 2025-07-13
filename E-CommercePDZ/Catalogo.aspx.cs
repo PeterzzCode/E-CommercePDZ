@@ -1,4 +1,6 @@
-﻿using System;
+﻿using dominio;
+using negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,15 @@ namespace E_CommercePDZ
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
+            if (!IsPostBack)
+            {
+                RemeraNegocio negocio = new RemeraNegocio();
+                List<Remera> lista = negocio.ListarCatalogo();
 
-		}
+                Session["listaRemeras"] = lista;
+                rptRemeras.DataSource = lista;
+                rptRemeras.DataBind();
+            }
+        }
 	}
 }

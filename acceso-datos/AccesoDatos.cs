@@ -19,7 +19,7 @@ namespace acceso_datos
 
         public AccesoDatos()
         {
-            conexion = new SqlConnection("data source=.\\SQLEXPRESS; initial catalog=; integrated security=sspi");
+            conexion = new SqlConnection("data source=DESKTOP-QR911I1\\SQLEXPRESS; initial catalog=PDZ_DB; integrated security=sspi");
             comando = new SqlCommand();
             comando.Connection = conexion;
         }
