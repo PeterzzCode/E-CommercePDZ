@@ -138,6 +138,7 @@ SELECT
 FROM Remera R
 JOIN UrlImagen U ON R.Id = U.IdRemera;
 
-UPDATE Remera
-SET Activo = 0
-WHERE Id = 7;
+UPDATE Stock
+SET Cantidad = 0
+WHERE IdRemera = 6 AND IdColor = 2 AND IdTalle = 3;
+

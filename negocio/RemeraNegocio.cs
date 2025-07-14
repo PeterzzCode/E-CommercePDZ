@@ -66,6 +66,65 @@ namespace negocio
                 throw ex;
             }
         }
+        public Remera ObtenerRemeraPorId(int idRemera)
+        {
+            SqlConnection conexion = new SqlConnection();
+            SqlCommand comando = new SqlCommand();
+            SqlDataReader lector = null;
 
+            try
+            {
+                conexion.ConnectionString = ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString;
+                conexion.Open();
+
+                string consulta = @"
+                SELECT 
+                R.Id, R.Nombre, R.Descripcion, R.Precio, R.Activo,
+                U.Id AS IdUrlImagen, U.DescripcionUrlImagen, U.IdRemera
+                FROM Remera R
+                JOIN UrlImagen U ON R.Id = U.IdRemera
+                WHERE R.Id = " + idRemera;
+
+                comando.CommandType = System.Data.CommandType.Text;
+                comando.CommandText = consulta;
+                comando.Connection = conexion;
+
+                lector = comando.ExecuteReader();
+
+                Remera remera = null;
+
+                while (lector.Read())
+                {
+                    if (remera == null)
+                    {
+                        remera = new Remera();
+                        remera.Id = (int)lector["Id"];
+                        remera.Nombre = lector["Nombre"].ToString();
+                        remera.Descripcion = lector["Descripcion"].ToString();
+                        remera.Precio = float.Parse(lector["Precio"].ToString());
+                        remera.Activo = bool.Parse(lector["Activo"].ToString());
+                        remera.UrlImagen = new List<UrlImagen>();
+                    }
+
+                    UrlImagen imagen = new UrlImagen();
+                    imagen.Id = (int)lector["IdUrlImagen"];
+                    imagen.IdRemera = (int)lector["IdRemera"];
+                    imagen.DescripcionUrlImagen = lector["DescripcionUrlImagen"].ToString();
+
+                    remera.UrlImagen.Add(imagen);
+                }
+
+                return remera;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (lector != null) lector.Close();
+                conexion.Close();
+            }
+        }
     }
 }

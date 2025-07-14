@@ -45,6 +45,7 @@
     <Compile Include="ColorNegocio.cs" />
     <Compile Include="RemeraNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockNegocio.cs" />
     <Compile Include="TalleNegocio.cs" />
   </ItemGroup>
   <ItemGroup>
