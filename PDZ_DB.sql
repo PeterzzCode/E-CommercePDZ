@@ -46,7 +46,24 @@ Create TABLE [dbo].[Remera](
 
 go
 
-Create TABLE [dbo].[Stock](
+create TABLE [dbo].[Usuario] (
+    [Id] [int] IDENTITY(1,1) NOT NULL,
+    Email [varchar](100) NOT NULL,
+    Pass [varchar](100) NOT NULL,
+    [Nombre] [varchar](50) NOT NULL,
+    [Apellido] [varchar](50) NOT NULL,
+    FechaNacimiento [date] NOT NULL,
+    ImagenPerfil [varchar](255),
+    Admin [bit] NOT NULL default 0,
+CONSTRAINT [PK_Usuario] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+go
+
+create TABLE [dbo].[Stock](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[IdRemera] [int] foreign key references Remera(Id) NOT NULL,
 	[IdColor] [int] foreign key references Color(Id) NOT NULL,
@@ -138,7 +155,17 @@ SELECT
 FROM Remera R
 JOIN UrlImagen U ON R.Id = U.IdRemera;
 
-UPDATE Stock
-SET Cantidad = 0
-WHERE IdRemera = 6 AND IdColor = 2 AND IdTalle = 3;
+delete from Usuario
+WHERE Nombre = 'Ariel';
 
+Update Usuario
+Set Admin = 1
+WHERE Nombre = 'Ariel';
+
+INSERT INTO [dbo].[Usuario] (Email, Pass, Nombre, Apellido, FechaNacimiento, ImagenPerfil, Admin)
+VALUES ('admin1@pdz.com', 'admin123', 'Pedro', 'Dominguez', '2001-06-27', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjsl0WdP2j7uKpG3zG72nKchym-2xwXTApSQ&s', 1);
+
+INSERT INTO [dbo].[Usuario] (Email, Pass, Nombre, Apellido, FechaNacimiento, ImagenPerfil, Admin)
+VALUES ('cliente1@pdz.com', 'cliente123', 'Carlos', 'Gomez', '1995-09-15', 'https://http2.mlstatic.com/D_NQ_NP_924266-MLA86724494807_062025-O.webp', 0);
+
+select * from Usuario

@@ -47,6 +47,7 @@
     <Compile Include="Stock.cs" />
     <Compile Include="Talle.cs" />
     <Compile Include="UrlImagen.cs" />
+    <Compile Include="Usuario.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,52 +6,70 @@
 <head runat="server">
     <title>PDZ</title>
     <link rel="icon" href="\Images\icon.png" type="image/png" />
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
-    <link href="\Content\MasterStyles.css" type= text/css; rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+    <link href="\Content\MasterStyles.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    <p id="textoArriba">Venta Minorista y Mayorista - Envios a Todo El Pais</p>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-       <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="Inicio.aspx">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="Catalogo.aspx">Nuestro Catalogo</a>
-            </li>
-              <li class="nav-item">
-                <a class="nav-link" href="Contacto.aspx">Contacto</a>
-              </li>
-          </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"/>
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
-          </form>
-        </div>
-           <div class="btn-carrito">
-               <a href="#">
-                   <img src="\Images\carrito.png" class="btn-carrito" />
-               </a>
-                 
-               
-           </div>
-           
-      </div>
-    </nav>
     <form id="form1" runat="server">
+        <p id="textoArriba">Venta Minorista y Mayorista - Envíos a Todo El País</p>
+
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="Inicio.aspx">
+                    <img src="/Images/icon.png" alt="PDZ Logo" style="height:40px;" />
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="Inicio.aspx">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="Catalogo.aspx">Nuestro Catálogo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Contacto.aspx">Contacto</a>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex align-items-center gap-2">
+
+                        <input class="form-control form-control-sm me-1" type="search" placeholder="Buscar" aria-label="Buscar" style="width: 150px;" />
+                        <button class="btn btn-outline-success btn-sm" type="submit">Buscar</button>
+
+                        <asp:Panel ID="pnlLogueado" runat="server" CssClass="d-flex align-items-center gap-2" Visible="false">
+                            <asp:Image ID="imgPerfil" runat="server" Width="35px" Height="35px" CssClass="rounded-circle border border-dark" />
+                            <asp:Label ID="lblUsuario" runat="server" CssClass="text-dark fw-bold me-2" />
+                            <asp:Button ID="btnLogout" runat="server" Text="Cerrar sesión" CssClass="btn btn-outline-danger btn-sm" OnClick="btnLogout_Click" />
+                        </asp:Panel>
+
+                        <asp:Panel ID="pnlNoLogueado" runat="server" Visible="true">
+                            <a href="Login.aspx" class="btn btn-outline-dark btn-sm">Login</a>
+                            <a href="Registro.aspx" class="btn btn-dark btn-sm">Registro</a>
+                        </asp:Panel>
+                    </div>
+                </div>
+
+                <div class="btn-carrito ms-3">
+                    <a href="#">
+                        <img src="\Images\carrito.png" class="btn-carrito" alt="Carrito" />
+                    </a>
+                </div>
+            </div>
+        </nav>
+
         <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                
-            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
         </div>
     </form>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
