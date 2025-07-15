@@ -4,6 +4,11 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="filtro-avanzado">
+        <asp:TextBox ID="txtPrecioMin" runat="server" CssClass="form-control form-control-sm" Placeholder="Precio mínimo" />
+        <asp:TextBox ID="txtPrecioMax" runat="server" CssClass="form-control form-control-sm" Placeholder="Precio máximo" />
+        <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="btn btn-primary btn-sm" OnClick="btnFiltrar_Click" />
+    </div>
     <div class="container" style="max-width: 1000px;">
         <div class="row">
             <asp:Repeater ID="rptRemeras" runat="server">

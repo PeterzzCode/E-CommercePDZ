@@ -41,8 +41,8 @@
 
                     <div class="d-flex align-items-center gap-2">
 
-                        <input class="form-control form-control-sm me-1" type="search" placeholder="Buscar" aria-label="Buscar" style="width: 150px;" />
-                        <button class="btn btn-outline-success btn-sm" type="submit">Buscar</button>
+                        <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control form-control-sm me-1" Placeholder="Buscar" Width="150px" />
+                        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-outline-success btn-sm" OnClick="btnBuscar_Click" />
 
                         <asp:Panel ID="pnlLogueado" runat="server" CssClass="d-flex align-items-center gap-2" Visible="false">
                             <asp:Image ID="imgPerfil" runat="server" Width="35px" Height="35px" CssClass="rounded-circle border border-dark" />

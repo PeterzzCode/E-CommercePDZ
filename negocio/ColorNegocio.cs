@@ -18,12 +18,12 @@ namespace negocio
             try
             {
 
-                datos.setearQuery("Select IdColor, DescripcionColor From COLOR");
+                datos.setearQuery("SELECT C.Id, C.Descripcion FROM Color C");
                 datos.ejecutarLector();
 
                 while (datos.Lector.Read())
                 {
-                    aux = new Color((int)datos.Lector["IdColor"], (string)datos.Lector["DescripcionColor"]);
+                    aux = new Color((int)datos.Lector["Id"], (string)datos.Lector["Descripcion"]);
                     lista.Add(aux);
                 }
                 return lista;

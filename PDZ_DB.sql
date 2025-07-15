@@ -168,4 +168,4 @@ VALUES ('admin1@pdz.com', 'admin123', 'Pedro', 'Dominguez', '2001-06-27', 'https
 INSERT INTO [dbo].[Usuario] (Email, Pass, Nombre, Apellido, FechaNacimiento, ImagenPerfil, Admin)
 VALUES ('cliente1@pdz.com', 'cliente123', 'Carlos', 'Gomez', '1995-09-15', 'https://http2.mlstatic.com/D_NQ_NP_924266-MLA86724494807_062025-O.webp', 0);
 
-select * from Usuario
+select * from Color

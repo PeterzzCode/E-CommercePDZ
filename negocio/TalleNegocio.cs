@@ -18,12 +18,12 @@ namespace negocio
             try
             {
 
-                datos.setearQuery("Select IdTalle, DescripcionTalle From TALLE");
+                datos.setearQuery("Select Id, Descripcion From TALLE");
                 datos.ejecutarLector();
 
                 while (datos.Lector.Read())
                 {
-                    aux = new Talle((int)datos.Lector["IdTalle"], (string)datos.Lector["DescripcionTalle"]);
+                    aux = new Talle((int)datos.Lector["Id"], (string)datos.Lector["Descripcion"]);
                     lista.Add(aux);
                 }
                 return lista;

@@ -38,5 +38,11 @@ namespace E_CommercePDZ
             Response.Redirect("Inicio.aspx");
         }
 
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            Session["filtroBusqueda"] = txtBuscar.Text;
+            Response.Redirect("Catalogo.aspx");
+        }
+
     }
 }
