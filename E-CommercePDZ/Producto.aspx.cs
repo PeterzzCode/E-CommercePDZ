@@ -2,6 +2,10 @@
 using negocio;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace E_CommercePDZ
 {
@@ -86,11 +90,8 @@ namespace E_CommercePDZ
         protected void btnComprar_Click(object sender, EventArgs e)
         {
             int cantidad = int.Parse(txtCantidad.Text);
-
             if (cantidad <= 0)
-            {
                 return;
-            }
 
             int idRemera = int.Parse(lblId.Text);
             int idColor = int.Parse(ddlColor.SelectedValue);
@@ -98,14 +99,34 @@ namespace E_CommercePDZ
 
             StockNegocio negocioStock = new StockNegocio();
             int stock = negocioStock.ObtenerStock(idRemera, idColor, idTalle);
-
             if (cantidad > stock)
-            {
                 return;
-            }
 
-            string url = $"Checkout.aspx?idRemera={idRemera}&idColor={idColor}&idTalle={idTalle}&cantidad={cantidad}";
-            Response.Redirect(url);
+            RemeraNegocio negocioRemera = new RemeraNegocio();
+            Remera remera = negocioRemera.ObtenerRemeraPorId(idRemera);
+            string imagenUrl = remera.UrlImagen != null && remera.UrlImagen.Count > 0 ? remera.UrlImagen[0].DescripcionUrlImagen : "";
+
+            ItemCarrito item = new ItemCarrito();
+
+            item.IdRemera = remera.Id;
+            item.Nombre = remera.Nombre;
+            item.ImagenUrl = imagenUrl;
+            item.Precio = remera.Precio;
+            item.IdColor = idColor;
+            item.DescripcionColor = ddlColor.SelectedItem.Text;
+            item.IdTalle = idTalle;
+            item.DescripcionTalle = ddlTalle.SelectedItem.Text;
+            item.Cantidad = cantidad;
+
+
+            List<ItemCarrito> carrito = Session["carrito"] as List<ItemCarrito>;
+            if (carrito == null)
+                carrito = new List<ItemCarrito>();
+
+            carrito.Add(item);
+            Session["carrito"] = carrito;
+
+            Response.Redirect("Carrito.aspx");
         }
     }
 }

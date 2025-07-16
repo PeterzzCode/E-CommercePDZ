@@ -58,8 +58,9 @@
                 </div>
 
                 <div class="btn-carrito ms-3">
-                    <a href="#">
+                    <a href="Carrito.aspx" class="carrito-container">
                         <img src="\Images\carrito.png" class="btn-carrito" alt="Carrito" />
+                        <span id="carritoCount" runat="server" class="position-absolute top-0 start-75 translate-middle badge rounded-pill bg-danger">0</span>
                     </a>
                 </div>
             </div>

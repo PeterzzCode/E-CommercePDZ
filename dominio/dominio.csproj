@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Color.cs" />
+    <Compile Include="ItemCarrito.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Remera.cs" />
     <Compile Include="Stock.cs" />

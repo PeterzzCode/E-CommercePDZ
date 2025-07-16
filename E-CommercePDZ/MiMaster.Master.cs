@@ -12,6 +12,11 @@ namespace E_CommercePDZ
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                ActualizarContadorCarrito();
+            }
+
             if (Session["usuario"] != null)
             {
                 Usuario user = (Usuario)Session["usuario"];
@@ -20,7 +25,7 @@ namespace E_CommercePDZ
 
                 lblUsuario.Text = "Hola, " + user.Nombre;
 
-                if (user.ImagenPerfil != null && user.ImagenPerfil != "")
+                if (!string.IsNullOrEmpty(user.ImagenPerfil))
                     imgPerfil.ImageUrl = user.ImagenPerfil;
                 else
                     imgPerfil.ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKxYIQWAfUXUfl8B8Qb5bOszmQN04aUipVCQ&s";
@@ -30,6 +35,19 @@ namespace E_CommercePDZ
                 pnlLogueado.Visible = false;
                 pnlNoLogueado.Visible = true;
             }
+        }
+
+        private void ActualizarContadorCarrito()
+        {
+            int cantidad = 0;
+
+            if (Session["carrito"] != null)
+            {
+                var carrito = (List<dominio.ItemCarrito>)Session["carrito"];
+                cantidad = carrito.Sum(item => item.Cantidad);
+            }
+
+            carritoCount.InnerText = cantidad.ToString();
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)

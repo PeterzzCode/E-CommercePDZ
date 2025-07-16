@@ -105,3 +105,19 @@ div{
     margin-left: 0px;
     margin-right: 0px;
 }
+.carrito-container {
+    position: relative;
+    display: inline-block;
+}
+
+.carrito-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: white;
+    padding: 2px 6px;
+    font-size: 12px;
+    border-radius: 50%;
+    font-weight: bold;
+}
