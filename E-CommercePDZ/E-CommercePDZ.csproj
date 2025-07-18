@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="Carrito.aspx" />
     <Content Include="Catalogo.aspx" />
+    <Content Include="CatalogoAdmin.aspx" />
     <Content Include="Checkout.aspx" />
     <Content Include="Contacto.aspx" />
     <Content Include="Content\MasterStyles.css" />
@@ -93,6 +94,13 @@
     </Compile>
     <Compile Include="Catalogo.aspx.designer.cs">
       <DependentUpon>Catalogo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CatalogoAdmin.aspx.cs">
+      <DependentUpon>CatalogoAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CatalogoAdmin.aspx.designer.cs">
+      <DependentUpon>CatalogoAdmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Checkout.aspx.cs">
       <DependentUpon>Checkout.aspx</DependentUpon>

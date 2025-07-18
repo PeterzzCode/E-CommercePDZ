@@ -13,7 +13,20 @@
 <body>
     <form id="form1" runat="server">
         <p id="textoArriba">Venta Minorista y Mayorista - Envíos a Todo El País</p>
-
+        <asp:Panel ID="pnlAdminNavbar" runat="server" Visible="false">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Admin</a>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="CatalogoAdmin.aspx">Gestionar Catalogo</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </asp:Panel>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="Inicio.aspx">

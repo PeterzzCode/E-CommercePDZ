@@ -22,6 +22,7 @@ namespace E_CommercePDZ
                 Usuario user = (Usuario)Session["usuario"];
                 pnlLogueado.Visible = true;
                 pnlNoLogueado.Visible = false;
+                pnlAdminNavbar.Visible = user.Admin;
 
                 lblUsuario.Text = "Hola, " + user.Nombre;
 
