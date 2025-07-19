@@ -29,15 +29,16 @@ namespace E_CommercePDZ
                 mensaje.From = new MailAddress("pedroadominguez@hotmail.com");
                 mensaje.To.Add(emailCliente);
                 mensaje.Subject = "[PDZ Contacto] "+ asunto;
-                mensaje.Body = "Email del cliente: " + emailCliente + "Mensaje: " + comentario;
+                mensaje.Body = "Buenas Somos PDZ, remitente " + emailCliente + " Nos Acercamos por el asunto que nos menciono: " + comentario + " a la brevedad nos estaremos poniendo en contacto con usted por este medio, este es un mensaje automatico, Cualquier duda respondemos de manera mas eficaz por WhatsApp al 1138454432! Muchas Gracias Por Comunicarse con Nosotros!";
 
                 SmtpClient server = new SmtpClient();
-                server.Credentials = new NetworkCredential("programationiii@gmail.com", "programacion3");
+                server.Credentials = new NetworkCredential("claushcraft2013@gmail.com", "idpk srck tmaz gzco");
                 server.EnableSsl = true;
                 server.Host= "smtp.gmail.com";
                 server.Port = 587;
 
                 server.Send(mensaje);
+
             }
             catch (Exception ex)
             {

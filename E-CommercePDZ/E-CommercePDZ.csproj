@@ -71,6 +71,7 @@
     <Content Include="Catalogo.aspx" />
     <Content Include="CatalogoAdmin.aspx" />
     <Content Include="Checkout.aspx" />
+    <Content Include="CompraExitosa.aspx" />
     <Content Include="Contacto.aspx" />
     <Content Include="Content\MasterStyles.css" />
     <Content Include="Error.aspx" />
@@ -109,6 +110,13 @@
     </Compile>
     <Compile Include="Checkout.aspx.designer.cs">
       <DependentUpon>Checkout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CompraExitosa.aspx.cs">
+      <DependentUpon>CompraExitosa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompraExitosa.aspx.designer.cs">
+      <DependentUpon>CompraExitosa.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contacto.aspx.cs">
       <DependentUpon>Contacto.aspx</DependentUpon>
