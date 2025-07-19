@@ -78,6 +78,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Producto.aspx" />
     <Content Include="Registro.aspx" />
+    <Content Include="VentasAdmin.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +159,13 @@
     </Compile>
     <Compile Include="Registro.aspx.designer.cs">
       <DependentUpon>Registro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VentasAdmin.aspx.cs">
+      <DependentUpon>VentasAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VentasAdmin.aspx.designer.cs">
+      <DependentUpon>VentasAdmin.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Color.cs" />
+    <Compile Include="DetalleVenta.cs" />
     <Compile Include="ItemCarrito.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Remera.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Talle.cs" />
     <Compile Include="UrlImagen.cs" />
     <Compile Include="Usuario.cs" />
+    <Compile Include="Venta.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,6 +12,9 @@ namespace dominio
         public Remera Remera { get; set; }
         public Color Color { get; set; }
         public Talle Talle { get; set; }
+        public int IdRemera { get; set; }
+        public int IdColor { get; set; }
+        public int IdTalle { get; set; }
         public int Cantidad { get; set; }
     }
 }

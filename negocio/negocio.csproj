@@ -48,6 +48,7 @@
     <Compile Include="StockNegocio.cs" />
     <Compile Include="TalleNegocio.cs" />
     <Compile Include="UsuarioNegocio.cs" />
+    <Compile Include="VentaNegocio.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\acceso-datos\acceso-datos.csproj">

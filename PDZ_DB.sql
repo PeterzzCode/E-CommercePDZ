@@ -9,6 +9,30 @@ GO
 
 Select * from Remera 
 
+CREATE TABLE Venta (
+    Id [int] IDENTITY(1,1) PRIMARY KEY,
+    IdUsuario [int] NOT NULL,
+	NombreCliente [varchar] (50),
+    Fecha [datetime] NOT NULL,
+    Total [decimal](18, 2) NOT NULL,
+    Estado [nvarchar](50) NOT NULL,
+    FOREIGN KEY (IdUsuario) REFERENCES Usuario(Id)
+);
+
+CREATE TABLE DetalleVenta (
+    Id [int] IDENTITY(1,1) PRIMARY KEY,
+    IdVenta [int] NOT NULL,
+    IdProducto [int] NOT NULL,
+    NombreProducto [nvarchar](100) NOT NULL,
+    Cantidad [int] NOT NULL,
+    PrecioUnitario [decimal](18, 2) NOT NULL,
+    Subtotal [decimal](18, 2) NOT NULL,
+    FOREIGN KEY (IdVenta) REFERENCES Venta(Id),
+    FOREIGN KEY (IdProducto) REFERENCES Remera(Id)
+);
+
+select * from Venta
+
 CREATE TABLE [dbo].[Talle](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Descripcion] [varchar](50) NULL,
@@ -155,12 +179,12 @@ SELECT
 FROM Remera R
 JOIN UrlImagen U ON R.Id = U.IdRemera;
 
-delete from Usuario
-WHERE Nombre = 'Ariel';
+delete from Venta
+WHERE NombreCliente = 'Invitado';
 
-Update Usuario
-Set Admin = 1
-WHERE Nombre = 'Ariel';
+Update Venta
+Set IdEstado = 2
+WHERE NombreCliente = 'Invitado';
 
 INSERT INTO [dbo].[Usuario] (Email, Pass, Nombre, Apellido, FechaNacimiento, ImagenPerfil, Admin)
 VALUES ('admin1@pdz.com', 'admin123', 'Pedro', 'Dominguez', '2001-06-27', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjsl0WdP2j7uKpG3zG72nKchym-2xwXTApSQ&s', 1);
