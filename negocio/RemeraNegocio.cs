@@ -186,10 +186,10 @@ namespace negocio
 
             try
             {
-                string query = "INSERT INTO Remera (Nombre, Descripcion, Precio, Activo) " +
+                string consulta = "INSERT INTO Remera (Nombre, Descripcion, Precio, Activo) " +
                                "VALUES ('" + remera.Nombre + "', '" + remera.Descripcion + "', " + remera.Precio.ToString().Replace(',', '.') + ", " + (remera.Activo ? 1 : 0) + ")";
 
-                SqlCommand cmd = new SqlCommand(query, conexion);
+                SqlCommand cmd = new SqlCommand(consulta, conexion);
                 conexion.Open();
                 cmd.ExecuteNonQuery();
                 conexion.Close();
@@ -200,10 +200,10 @@ namespace negocio
 
                     if (descripcionImg != null && descripcionImg.Length > 0)
                     {
-                        string queryImg = "INSERT INTO UrlImagen (DescripcionUrlImagen, IdRemera) " +
+                        string consultaImg = "INSERT INTO UrlImagen (DescripcionUrlImagen, IdRemera) " +
                                           "VALUES ('" + descripcionImg + "', (SELECT MAX(Id) FROM Remera))";
 
-                        SqlCommand cmdImg = new SqlCommand(queryImg, conexion);
+                        SqlCommand cmdImg = new SqlCommand(consultaImg, conexion);
                         conexion.Open();
                         cmdImg.ExecuteNonQuery();
                         conexion.Close();
@@ -226,14 +226,14 @@ namespace negocio
 
             try
             {
-                string query = "UPDATE Remera SET " +
+                string consulta = "UPDATE Remera SET " +
                                "Nombre = '" + remera.Nombre + "', " +
                                "Descripcion = '" + remera.Descripcion + "', " +
                                "Precio = " + remera.Precio.ToString().Replace(',', '.') + ", " +
                                "Activo = " + (remera.Activo ? 1 : 0) + " " +
                                "WHERE Id = " + remera.Id;
 
-                SqlCommand cmd = new SqlCommand(query, conexion);
+                SqlCommand cmd = new SqlCommand(consulta, conexion);
                 conexion.Open();
                 cmd.ExecuteNonQuery();
                 conexion.Close();
@@ -244,11 +244,11 @@ namespace negocio
 
                     if (descripcionImg != null && descripcionImg.Length > 0)
                     {
-                        string queryImg = "UPDATE UrlImagen SET " +
+                        string consultaImg = "UPDATE UrlImagen SET " +
                                           "DescripcionUrlImagen = '" + descripcionImg + "' " +
                                           "WHERE IdRemera = " + remera.Id;
 
-                        SqlCommand cmdImg = new SqlCommand(queryImg, conexion);
+                        SqlCommand cmdImg = new SqlCommand(consultaImg, conexion);
                         conexion.Open();
                         cmdImg.ExecuteNonQuery();
                         conexion.Close();

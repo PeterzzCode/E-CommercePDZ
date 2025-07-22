@@ -83,8 +83,8 @@ namespace negocio
         {
             using (SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString))
             {
-                string query = "UPDATE Venta SET Estado = @Estado WHERE Id = @IdVenta";
-                SqlCommand cmd = new SqlCommand(query, conexion);
+                string consulta = "UPDATE Venta SET Estado = @Estado WHERE Id = @IdVenta";
+                SqlCommand cmd = new SqlCommand(consulta, conexion);
                 cmd.Parameters.AddWithValue("@Estado", nuevoEstado);
                 cmd.Parameters.AddWithValue("@IdVenta", idVenta);
                 conexion.Open();
@@ -97,30 +97,30 @@ namespace negocio
 
             using (SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString))
             {
-                string query = @"SELECT V.Id, V.IdUsuario, U.Nombre AS NombreCliente, V.Fecha, V.Total, V.Estado
+                string consulta = @"SELECT V.Id, V.IdUsuario, U.Nombre AS NombreCliente, V.Fecha, V.Total, V.Estado
                          FROM Venta V
                          INNER JOIN Usuario U ON V.IdUsuario = U.Id";
 
-                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlCommand comando = new SqlCommand(consulta, conexion);
                 conexion.Open();
-                SqlDataReader reader = comando.ExecuteReader();
+                SqlDataReader lector = comando.ExecuteReader();
 
-                while (reader.Read())
+                while (lector.Read())
                 {
                     Venta venta = new Venta
                     {
-                        Id = (int)reader["Id"],
-                        IdUsuario = (int)reader["IdUsuario"],
-                        NombreCliente = reader["NombreCliente"].ToString(),
-                        Fecha = (DateTime)reader["Fecha"],
-                        Total = (decimal)reader["Total"],
-                        Estado = reader["Estado"].ToString()
+                        Id = (int)lector["Id"],
+                        IdUsuario = (int)lector["IdUsuario"],
+                        NombreCliente = lector["NombreCliente"].ToString(),
+                        Fecha = (DateTime)lector["Fecha"],
+                        Total = (decimal)lector["Total"],
+                        Estado = lector["Estado"].ToString()
                     };
 
                     lista.Add(venta);
                 }
 
-                reader.Close();
+                lector.Close();
             }
 
             return lista;
