@@ -100,7 +100,11 @@ namespace E_CommercePDZ
             StockNegocio negocioStock = new StockNegocio();
             int stock = negocioStock.ObtenerStock(idRemera, idColor, idTalle);
             if (cantidad > stock)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "alertStock",
+                "alert('No hay suficiente stock disponible para esta cantidad.');", true);
                 return;
+            }
 
             RemeraNegocio negocioRemera = new RemeraNegocio();
             Remera remera = negocioRemera.ObtenerRemeraPorId(idRemera);

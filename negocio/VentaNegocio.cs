@@ -83,12 +83,15 @@ namespace negocio
         {
             using (SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString))
             {
+                SqlCommand comando = new SqlCommand();
                 string consulta = "UPDATE Venta SET Estado = @Estado WHERE Id = @IdVenta";
-                SqlCommand cmd = new SqlCommand(consulta, conexion);
-                cmd.Parameters.AddWithValue("@Estado", nuevoEstado);
-                cmd.Parameters.AddWithValue("@IdVenta", idVenta);
+                comando.Connection = conexion;
+                comando.CommandType = System.Data.CommandType.Text;
+                comando.CommandText = consulta;
+                comando.Parameters.AddWithValue("@Estado", nuevoEstado);
+                comando.Parameters.AddWithValue("@IdVenta", idVenta);
                 conexion.Open();
-                cmd.ExecuteNonQuery();
+                comando.ExecuteNonQuery();
             }
         }
         public List<Venta> ListarVentasConCliente()
@@ -97,13 +100,17 @@ namespace negocio
 
             using (SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString))
             {
+                SqlCommand comando = new SqlCommand();
+                SqlDataReader lector = null;
                 string consulta = @"SELECT V.Id, V.IdUsuario, U.Nombre AS NombreCliente, V.Fecha, V.Total, V.Estado
                          FROM Venta V
                          INNER JOIN Usuario U ON V.IdUsuario = U.Id";
 
-                SqlCommand comando = new SqlCommand(consulta, conexion);
+                comando.Connection = conexion;
+                comando.CommandType = System.Data.CommandType.Text;
+                comando.CommandText = consulta;
                 conexion.Open();
-                SqlDataReader lector = comando.ExecuteReader();
+                lector = comando.ExecuteReader();
 
                 while (lector.Read())
                 {

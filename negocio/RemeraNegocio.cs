@@ -189,9 +189,9 @@ namespace negocio
                 string consulta = "INSERT INTO Remera (Nombre, Descripcion, Precio, Activo) " +
                                "VALUES ('" + remera.Nombre + "', '" + remera.Descripcion + "', " + remera.Precio.ToString().Replace(',', '.') + ", " + (remera.Activo ? 1 : 0) + ")";
 
-                SqlCommand cmd = new SqlCommand(consulta, conexion);
+                SqlCommand comando = new SqlCommand(consulta, conexion);
                 conexion.Open();
-                cmd.ExecuteNonQuery();
+                comando.ExecuteNonQuery();
                 conexion.Close();
 
                 if (remera.UrlImagen != null && remera.UrlImagen.Count > 0)
@@ -203,9 +203,9 @@ namespace negocio
                         string consultaImg = "INSERT INTO UrlImagen (DescripcionUrlImagen, IdRemera) " +
                                           "VALUES ('" + descripcionImg + "', (SELECT MAX(Id) FROM Remera))";
 
-                        SqlCommand cmdImg = new SqlCommand(consultaImg, conexion);
+                        SqlCommand comandoImg = new SqlCommand(consultaImg, conexion);
                         conexion.Open();
-                        cmdImg.ExecuteNonQuery();
+                        comandoImg.ExecuteNonQuery();
                         conexion.Close();
                     }
                 }
@@ -233,9 +233,12 @@ namespace negocio
                                "Activo = " + (remera.Activo ? 1 : 0) + " " +
                                "WHERE Id = " + remera.Id;
 
-                SqlCommand cmd = new SqlCommand(consulta, conexion);
+                SqlCommand comando = new SqlCommand();
+                comando.CommandType = System.Data.CommandType.Text;
+                comando.CommandText = consulta;
+                comando.Connection = conexion;
                 conexion.Open();
-                cmd.ExecuteNonQuery();
+                comando.ExecuteNonQuery();
                 conexion.Close();
 
                 if (remera.UrlImagen != null && remera.UrlImagen.Count > 0)
@@ -248,9 +251,12 @@ namespace negocio
                                           "DescripcionUrlImagen = '" + descripcionImg + "' " +
                                           "WHERE IdRemera = " + remera.Id;
 
-                        SqlCommand cmdImg = new SqlCommand(consultaImg, conexion);
+                        SqlCommand comandoImg = new SqlCommand();
+                        comandoImg.CommandType = System.Data.CommandType.Text;
+                        comandoImg.CommandText = consultaImg;
+                        comandoImg.Connection = conexion;
                         conexion.Open();
-                        cmdImg.ExecuteNonQuery();
+                        comandoImg.ExecuteNonQuery();
                         conexion.Close();
                     }
                 }

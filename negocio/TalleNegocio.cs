@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using dominio;
 using acceso_datos;
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace negocio
 {
@@ -13,17 +15,19 @@ namespace negocio
         public List<Talle> listar()
         {
             Talle aux;
-            AccesoDatos datos = new AccesoDatos();
             List<Talle> lista = new List<Talle>();
+            SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString);
+            SqlCommand comando = new SqlCommand();
+            SqlDataReader lector = null;
             try
             {
 
-                datos.setearQuery("Select Id, Descripcion From TALLE");
-                datos.ejecutarLector();
+                comando.CommandText = "Select Id, Descripcion From TALLE";
+                lector = comando.ExecuteReader();
 
-                while (datos.Lector.Read())
+                while (lector.Read())
                 {
-                    aux = new Talle((int)datos.Lector["Id"], (string)datos.Lector["Descripcion"]);
+                    aux = new Talle((int)lector["Id"], (string)lector["Descripcion"]);
                     lista.Add(aux);
                 }
                 return lista;
@@ -34,7 +38,7 @@ namespace negocio
             }
             finally
             {
-                datos.cerrarConexion();
+                lector.Close();
             }
         }
     }
