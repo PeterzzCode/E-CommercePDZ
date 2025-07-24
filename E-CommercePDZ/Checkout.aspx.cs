@@ -38,10 +38,10 @@ namespace E_CommercePDZ
                 rptResumenCarrito.DataSource = carrito;
                 rptResumenCarrito.DataBind();
 
-                decimal total = 0;
+                float total = 0;
                 foreach (ItemCarrito item in carrito)
                 {
-                    total += (decimal)item.Subtotal;
+                    total += item.Subtotal;
                 }
 
                 lblTotal.Text = total.ToString("0.00");

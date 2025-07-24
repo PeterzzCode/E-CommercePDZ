@@ -31,11 +31,9 @@
                         <td>$<%# Eval("Precio") %></td>
                         <td>$<%# Eval("Subtotal") %></td>
                     </tr>
-                </ItemTemplate>
-                <FooterTemplate>
                         </tbody>
                     </table>
-                </FooterTemplate>
+                </ItemTemplate>
             </asp:Repeater>
 
             <p class="fw-bold fs-5">Total: $<asp:Label ID="lblTotal" runat="server" /></p>

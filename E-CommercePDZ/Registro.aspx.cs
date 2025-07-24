@@ -31,9 +31,8 @@ namespace E_CommercePDZ
                 Session["usuario"] = usuario;
                 Response.Redirect("Inicio.aspx", false);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
