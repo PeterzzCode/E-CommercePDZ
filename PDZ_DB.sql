@@ -39,8 +39,7 @@ CREATE TABLE [dbo].[Talle](
  CONSTRAINT [PK_Talle] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+)
 
 go
 
@@ -50,8 +49,7 @@ CREATE TABLE [dbo].[Color](
  CONSTRAINT [PK_Color] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+)
 
 go
 
@@ -65,8 +63,7 @@ Create TABLE [dbo].[Remera](
  CONSTRAINT [PK_Remera] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+)
 
 go
 
@@ -82,8 +79,7 @@ create TABLE [dbo].[Usuario] (
 CONSTRAINT [PK_Usuario] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+)
 
 go
 
@@ -96,8 +92,7 @@ create TABLE [dbo].[Stock](
  CONSTRAINT [PK_Stock] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+)
 
 go
 
@@ -108,8 +103,7 @@ CREATE TABLE [dbo].[UrlImagen](
 	CONSTRAINT [PK_UrlImagen] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+)
 
 go
 
@@ -131,7 +125,7 @@ INSERT INTO Remera (Nombre, Descripcion, Precio, IdUrlImagen, Activo) VALUES
 ('PDZ Fallen', 'Remera oversize con detalle gráfico.', 13999.99, 4, 1),
 ('White Blessed', 'Remera oversize con detalle gráfico.', 16999.99, 5, 1),
 ('PDZ Anxiety', 'Impresión gótica Trasera estilo PDZ.', 15999.99, 6, 1),
-('PDZ Curve 2', 'Inspirada en la cultura skater y el confort.', 15999.99, 7, 1);
+('PDZ Curve 2', 'Inspirada en la cultura skater y el confort.', 15999.99, 7, 0);
 
 go
 
@@ -139,12 +133,10 @@ DECLARE @idRemera INT = 1;
 
 WHILE @idRemera <= 7
 BEGIN
-    -- Color 1 (Negro)
     INSERT INTO Stock (IdRemera, IdColor, IdTalle, Cantidad) VALUES (@idRemera, 1, 1, 10);
     INSERT INTO Stock (IdRemera, IdColor, IdTalle, Cantidad) VALUES (@idRemera, 1, 2, 15);
     INSERT INTO Stock (IdRemera, IdColor, IdTalle, Cantidad) VALUES (@idRemera, 1, 3, 12);
 
-    -- Color 2 (Blanco)
     INSERT INTO Stock (IdRemera, IdColor, IdTalle, Cantidad) VALUES (@idRemera, 2, 1, 8);
     INSERT INTO Stock (IdRemera, IdColor, IdTalle, Cantidad) VALUES (@idRemera, 2, 2, 14);
     INSERT INTO Stock (IdRemera, IdColor, IdTalle, Cantidad) VALUES (@idRemera, 2, 3, 11);
