@@ -7,7 +7,7 @@ go
 USE [PDZ_DB]
 GO
 
-Select * from Remera 
+Select * from Usuario
 
 CREATE TABLE Venta (
     Id [int] IDENTITY(1,1) PRIMARY KEY,
@@ -171,8 +171,8 @@ SELECT
 FROM Remera R
 JOIN UrlImagen U ON R.Id = U.IdRemera;
 
-delete from Venta
-WHERE NombreCliente = 'Invitado';
+delete from Usuario
+WHERE Email = 'cliente5@pdz.com';
 
 Update Venta
 Set IdEstado = 2

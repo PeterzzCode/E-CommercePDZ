@@ -5,7 +5,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <h2>Catalogo Admin - Agregar y Editar</h2>
+    <h2>Catalogo Admin - Editar</h2>
 
     <asp:Panel ID="pnlAgregarEditar" runat="server" CssClass="mb-4 border p-3">
         <asp:HiddenField ID="hfIdRemera" runat="server" />

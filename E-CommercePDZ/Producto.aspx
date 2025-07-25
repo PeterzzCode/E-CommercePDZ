@@ -11,7 +11,7 @@
                         <asp:Repeater ID="rptImagenes" runat="server">
                             <ItemTemplate>
                                 <div class='carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>'>
-                                    <img src='<%# Eval("DescripcionUrlImagen") %>' class="d-block w-100" style="height: 400px; object-fit: cover;" alt="Imagen" />
+                                    <img src='<%# Eval("DescripcionUrlImagen") %>' class="d-block w-100" style="height: 520px; object-fit: fill;" alt="Imagen" />
                                 </div>
                             </ItemTemplate>
                         </asp:Repeater>

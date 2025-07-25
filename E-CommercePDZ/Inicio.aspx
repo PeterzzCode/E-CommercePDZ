@@ -10,14 +10,14 @@
           <div class="row">
             <div class="col">
               <div class="div-remera-blanca">
-                  <a href="Catalogo.aspx" class="a-remera-blanca">
+                  <a href="Producto.aspx?id=4" class="a-remera-blanca">
                       <img src="/Images/RemeraBlanca1.jpg" class="remera-blanca" alt="Remera Blanca" />
                   </a>
               </div>
             </div>
             <div class="col">
               <div class="div-remera-blanca2">
-                  <a href="Catalogo.aspx" class="a-remera-blanca2">
+                  <a href="Producto.aspx?id=3" class="a-remera-blanca2">
                       <img src="/Images/RemeraBlanca2.jpg" class="remera-blanca2" alt="Remera Blanca 2" />
                   </a>
               </div>
@@ -31,14 +31,14 @@
           <div class="row">
             <div class="col">
               <div class="div-remera-negra">
-                  <a href="Catalogo.aspx" class="a-remera-negra">
+                  <a href="Producto.aspx?id=2" class="a-remera-negra">
                       <img src="/Images/RemeraNegra1.png" class="remera-negra" alt="Remera Negra" />
                   </a>
               </div>
             </div>
             <div class="col">
               <div class="div-remera-negra2">
-                  <a href="Catalogo.aspx" class="a-remera-negra2">
+                  <a href="Producto.aspx?id=5" class="a-remera-negra2">
                       <img src="/Images/RemeraNegra2.png" class="remera-negra2" alt="Remera Negra 2" />
                   </a>
               </div>
@@ -53,10 +53,10 @@
         
             <div class="carousel-item active">
               <div class="d-flex justify-content-center align-items-center gap-4" style="min-height: 500px;">
-                <a href="Catalogo.aspx">
+                <a href="Producto.aspx?id=3">
                   <img src="/Images/RemeraBlanca2.jpg" class="img-fluid" style="max-height: 500px;" alt="Remera Blanca 2" />
                 </a>
-                <a href="Catalogo.aspx">
+                <a href="Producto.aspx?id=3">
                   <img src="/Images/RemeraBlanca22.jpg" class="img-fluid" style="max-height: 500px;" alt="Remera Blanca 2" />
                 </a>
               </div>
@@ -64,10 +64,10 @@
         
             <div class="carousel-item">
               <div class="d-flex justify-content-center align-items-center gap-4" style="min-height: 500px;">
-                <a href="Catalogo.aspx">
+                <a href="Producto.aspx?id=2">
                   <img src="/Images/RemeraNegra1.png" class="img-fluid" style="max-height: 500px;" alt="Remera Negra" />
                 </a>
-                <a href="Catalogo.aspx">
+                <a href="Producto.aspx?id=2">
                   <img src="/Images/RemeraNegra11.jpg" class="img-fluid" style="max-height: 500px;" alt="Remera Negra" />
                 </a>
               </div>
@@ -75,10 +75,10 @@
         
             <div class="carousel-item">
               <div class="d-flex justify-content-center align-items-center gap-4" style="min-height: 500px;">
-                <a href="Catalogo.aspx">
+                <a href="Producto.aspx?id=5">
                   <img src="/Images/RemeraNegra2.png" class="img-fluid" style="max-height: 500px;" alt="Remera Negra 2" />
                 </a>
-                <a href="Catalogo.aspx">
+                <a href="Producto.aspx?id=5">
                   <img src="/Images/RemeraNegra22.jpg" class="img-fluid" style="max-height: 500px;" alt="Remera Negra 2" />
                 </a>
               </div>

@@ -13,7 +13,7 @@ namespace E_CommercePDZ
 	{
         protected void Page_Load(object sender, EventArgs e)
         {
-            Usuario usuario = Session["usuario"] as Usuario;
+            Usuario usuario = (Usuario)Session["usuario"];
             if (usuario == null)
             {
                 Response.Redirect("Login.aspx");
@@ -25,7 +25,7 @@ namespace E_CommercePDZ
 
         private void CargarCarrito()
         {
-            List<ItemCarrito> carrito = Session["carrito"] as List<ItemCarrito>;
+            List<ItemCarrito> carrito = (List<ItemCarrito>)Session["carrito"];
             if (carrito == null)
                 carrito = new List<ItemCarrito>();
 
@@ -52,7 +52,7 @@ namespace E_CommercePDZ
         {
             try
             {
-                List<ItemCarrito> carrito = Session["carrito"] as List<ItemCarrito>;
+                List<ItemCarrito> carrito = (List<ItemCarrito>)Session["carrito"];
                 if (carrito == null || carrito.Count == 0)
                 {
                     Response.Redirect("Carrito.aspx");
@@ -71,6 +71,26 @@ namespace E_CommercePDZ
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+        protected void rptCarrito_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "Eliminar")
+            {
+                int Id = int.Parse(e.CommandArgument.ToString());
+
+                List<ItemCarrito> carrito = (List<ItemCarrito>)Session["carrito"];
+                if (carrito != null)
+                {
+                    ItemCarrito itemAEliminar = carrito.FirstOrDefault(x => x.IdRemera == Id);
+                    if (itemAEliminar != null)
+                    {
+                        carrito.Remove(itemAEliminar);
+                        Session["carrito"] = carrito;
+                    }
+                }
+
+                CargarCarrito();
             }
         }
     }

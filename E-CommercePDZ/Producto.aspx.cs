@@ -123,7 +123,7 @@ namespace E_CommercePDZ
             item.Cantidad = cantidad;
 
 
-            List<ItemCarrito> carrito = Session["carrito"] as List<ItemCarrito>;
+            List<ItemCarrito> carrito = (List<ItemCarrito>)Session["carrito"];
             if (carrito == null)
                 carrito = new List<ItemCarrito>();
 

@@ -13,7 +13,7 @@ namespace E_CommercePDZ
 	{
         protected void Page_Load(object sender, EventArgs e)
         {
-            Usuario usuario = Session["usuario"] as Usuario;
+            Usuario usuario = (Usuario)Session["usuario"];
             if (usuario == null)
             {
                 Response.Redirect("Login.aspx");

@@ -44,8 +44,11 @@ namespace E_CommercePDZ
 
             if (Session["carrito"] != null)
             {
-                var carrito = (List<dominio.ItemCarrito>)Session["carrito"];
-                cantidad = carrito.Sum(item => item.Cantidad);
+                List<ItemCarrito> carrito = (List<ItemCarrito>)Session["carrito"];
+                foreach (ItemCarrito item in carrito)
+                {
+                    cantidad += item.Cantidad;
+                }
             }
 
             carritoCount.InnerText = cantidad.ToString();
