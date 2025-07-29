@@ -9,17 +9,19 @@ GO
 
 Select * from Usuario
 
-CREATE TABLE Venta (
+create TABLE Venta (
     Id [int] IDENTITY(1,1) PRIMARY KEY,
     IdUsuario [int] NOT NULL,
 	NombreCliente [varchar] (50),
+	ApellidoCliente [varchar] (50),
+	EmailCliente [varchar] (100),
     Fecha [datetime] NOT NULL,
     Total [decimal](18, 2) NOT NULL,
     Estado [nvarchar](50) NOT NULL,
     FOREIGN KEY (IdUsuario) REFERENCES Usuario(Id)
 );
 
-CREATE TABLE DetalleVenta (
+create TABLE DetalleVenta (
     Id [int] IDENTITY(1,1) PRIMARY KEY,
     IdVenta [int] NOT NULL,
     IdProducto [int] NOT NULL,
@@ -174,9 +176,9 @@ JOIN UrlImagen U ON R.Id = U.IdRemera;
 delete from Usuario
 WHERE Email = 'cliente5@pdz.com';
 
-Update Venta
-Set IdEstado = 2
-WHERE NombreCliente = 'Invitado';
+Update Usuario
+Set Email = 'pedroadominguez@hotmail.com'
+WHERE Nombre = 'Carlos';
 
 INSERT INTO [dbo].[Usuario] (Email, Pass, Nombre, Apellido, FechaNacimiento, ImagenPerfil, Admin)
 VALUES ('admin1@pdz.com', 'admin123', 'Pedro', 'Dominguez', '2001-06-27', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjsl0WdP2j7uKpG3zG72nKchym-2xwXTApSQ&s', 1);
