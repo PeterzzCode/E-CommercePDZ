@@ -102,9 +102,10 @@ namespace negocio
             {
                 SqlCommand comando = new SqlCommand();
                 SqlDataReader lector = null;
-                string consulta = @"SELECT V.Id, V.IdUsuario, U.Nombre AS NombreCliente, V.Fecha, V.Total, V.Estado
-                         FROM Venta V
-                         INNER JOIN Usuario U ON V.IdUsuario = U.Id";
+
+                string consulta = @"SELECT V.Id, V.IdUsuario, U.Nombre AS NombreCliente, U.Apellido, U.Email, V.Fecha, V.Total, V.Estado
+                            FROM Venta V
+                            INNER JOIN Usuario U ON V.IdUsuario = U.Id";
 
                 comando.Connection = conexion;
                 comando.CommandType = System.Data.CommandType.Text;
@@ -119,9 +120,100 @@ namespace negocio
                         Id = (int)lector["Id"],
                         IdUsuario = (int)lector["IdUsuario"],
                         NombreCliente = lector["NombreCliente"].ToString(),
+                        ApellidoCliente = lector["Apellido"].ToString(),
+                        EmailCliente = lector["Email"].ToString(),
                         Fecha = (DateTime)lector["Fecha"],
                         Total = (decimal)lector["Total"],
                         Estado = lector["Estado"].ToString()
+                    };
+
+                    venta.Detalles = ListarDetallesVenta(venta.Id);
+
+                    lista.Add(venta);
+                }
+
+                lector.Close();
+            }
+
+            return lista;
+        }
+        public List<DetalleVenta> ListarDetallesVenta(int idVenta)
+        {
+            List<DetalleVenta> detalles = new List<DetalleVenta>();
+
+            using (SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString))
+            {
+                SqlCommand comando = new SqlCommand();
+                SqlDataReader lector = null;
+
+                string consulta = @"SELECT D.Id, D.IdVenta, D.IdProducto, R.Nombre AS NombreProducto, D.Cantidad, D.PrecioUnitario
+                            FROM DetalleVenta D
+                            INNER JOIN Remera R ON D.IdProducto = R.Id
+                            WHERE D.IdVenta = @idVenta";
+
+                comando.Connection = conexion;
+                comando.CommandType = System.Data.CommandType.Text;
+                comando.CommandText = consulta;
+                comando.Parameters.AddWithValue("@idVenta", idVenta);
+                conexion.Open();
+                lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    DetalleVenta detalle = new DetalleVenta
+                    {
+                        Id = (int)lector["Id"],
+                        IdVenta = (int)lector["IdVenta"],
+                        IdProducto = (int)lector["IdProducto"],
+                        NombreProducto = lector["NombreProducto"].ToString(),
+                        Cantidad = (int)lector["Cantidad"],
+                        PrecioUnitario = (decimal)lector["PrecioUnitario"],
+                        Subtotal = (decimal)lector["PrecioUnitario"] * (int)lector["Cantidad"]
+                    };
+
+                    detalles.Add(detalle);
+                }
+
+                lector.Close();
+            }
+
+            return detalles;
+        }
+        public List<Venta> ListarVentasPorUsuario(int idUsuario)
+        {
+            List<Venta> lista = new List<Venta>();
+
+            using (SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString))
+            {
+                SqlCommand comando = new SqlCommand();
+                SqlDataReader lector = null;
+
+                string consulta = @"SELECT V.Id, V.IdUsuario, V.NombreCliente, V.ApellidoCliente, V.EmailCliente,
+                            V.Fecha, V.Total, V.Estado
+                            FROM Venta V
+                            WHERE V.IdUsuario = @idUsuario";
+
+                comando.Connection = conexion;
+                comando.CommandType = System.Data.CommandType.Text;
+                comando.CommandText = consulta;
+                comando.Parameters.AddWithValue("@idUsuario", idUsuario);
+
+                conexion.Open();
+                lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Venta venta = new Venta
+                    {
+                        Id = (int)lector["Id"],
+                        IdUsuario = (int)lector["IdUsuario"],
+                        NombreCliente = lector["NombreCliente"].ToString(),
+                        ApellidoCliente = lector["ApellidoCliente"].ToString(),
+                        EmailCliente = lector["EmailCliente"].ToString(),
+                        Fecha = (DateTime)lector["Fecha"],
+                        Total = (decimal)lector["Total"],
+                        Estado = lector["Estado"].ToString(),
+                        Detalles = ListarDetallesVenta((int)lector["Id"])
                     };
 
                     lista.Add(venta);
@@ -131,6 +223,39 @@ namespace negocio
             }
 
             return lista;
+        }
+        public Venta ObtenerVentaPorId(int idVenta)
+        {
+            Venta venta = null;
+            using (SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString))
+            {
+                string consulta = @"SELECT V.Id, V.IdUsuario, U.Nombre, U.Apellido, U.Email, V.Fecha, V.Total, V.Estado
+                            FROM Venta V
+                            INNER JOIN Usuario U ON V.IdUsuario = U.Id
+                            WHERE V.Id = @IdVenta";
+
+                SqlCommand comando = new SqlCommand(consulta, conexion);
+                comando.Parameters.AddWithValue("@IdVenta", idVenta);
+                conexion.Open();
+                SqlDataReader lector = comando.ExecuteReader();
+
+                if (lector.Read())
+                {
+                    venta = new Venta()
+                    {
+                        Id = (int)lector["Id"],
+                        IdUsuario = (int)lector["IdUsuario"],
+                        NombreCliente = lector["Nombre"].ToString(),
+                        ApellidoCliente = lector["Apellido"].ToString(),
+                        EmailCliente = lector["Email"].ToString(),
+                        Fecha = (DateTime)lector["Fecha"],
+                        Total = (decimal)lector["Total"],
+                        Estado = lector["Estado"].ToString()
+                    };
+                }
+                lector.Close();
+            }
+            return venta;
         }
     }
 }

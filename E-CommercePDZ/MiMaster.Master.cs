@@ -23,6 +23,7 @@ namespace E_CommercePDZ
                 pnlLogueado.Visible = true;
                 pnlNoLogueado.Visible = false;
                 pnlAdminNavbar.Visible = user.Admin;
+                pnlMisCompras.Visible = true;
 
                 lblUsuario.Text = "Hola, " + user.Nombre;
 
@@ -35,6 +36,7 @@ namespace E_CommercePDZ
             {
                 pnlLogueado.Visible = false;
                 pnlNoLogueado.Visible = true;
+                pnlMisCompras.Visible = false;
             }
         }
 

@@ -93,6 +93,13 @@ namespace E_CommercePDZ
             if (cantidad <= 0)
                 return;
 
+            Usuario usuario = (Usuario)Session["usuario"];
+            if (usuario == null)
+            {
+                Response.Redirect("Login.aspx");
+                return;
+            }
+
             int idRemera = int.Parse(lblId.Text);
             int idColor = int.Parse(ddlColor.SelectedValue);
             int idTalle = int.Parse(ddlTalle.SelectedValue);

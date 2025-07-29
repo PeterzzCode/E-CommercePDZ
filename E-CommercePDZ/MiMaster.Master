@@ -50,6 +50,11 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="Catalogo.aspx">Nuestro Catálogo</a>
                         </li>
+                        <asp:Panel ID="pnlMisCompras" runat="server" Visible="false">
+                            <li class="nav-item">
+                                <a class="nav-link" href="MisCompras.aspx">Mis Compras</a>
+                            </li>
+                        </asp:Panel>
                         <li class="nav-item">
                             <a class="nav-link" href="Contacto.aspx">Contacto</a>
                         </li>
