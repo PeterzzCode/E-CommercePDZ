@@ -12,33 +12,31 @@ namespace negocio
 {
     public class ColorNegocio
     {
-        public List<Color> listar()
+        public List<Color> Listar()
         {
-            Color aux;
             List<Color> lista = new List<Color>();
-            SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString);
-            SqlCommand comando = new SqlCommand();
-            SqlDataReader lector = null;
+            AccesoDatos datos = new AccesoDatos();
+
             try
             {
+                datos.setearQuery("SELECT Id, Descripcion FROM Color");
+                datos.ejecutarLector();
 
-                comando.CommandText = "Select Id, Descripcion From COLOR";
-                lector = comando.ExecuteReader();
-
-                while (lector.Read())
+                while (datos.Lector.Read())
                 {
-                    aux = new Color((int)lector["Id"], (string)lector["Descripcion"]);
-                    lista.Add(aux);
+                    Color color = new Color
+                    {
+                        Id = (int)datos.Lector["Id"],
+                        Descripcion = datos.Lector["Descripcion"].ToString()
+                    };
+                    lista.Add(color);
                 }
+
                 return lista;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
             finally
             {
-                lector.Close();
+                datos.cerrarConexion();
             }
         }
     }

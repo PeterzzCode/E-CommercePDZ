@@ -13,6 +13,59 @@ namespace negocio
 {
     public class StockNegocio
     {
+        public void GuardarStock(Stock stock)
+        {
+            SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString);
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = conexion;
+
+            try
+            {
+                conexion.Open();
+
+                string consultaExiste = "SELECT COUNT(*) FROM Stock WHERE IdRemera = @idRemera AND IdColor = @idColor AND IdTalle = @idTalle";
+                comando.CommandText = consultaExiste;
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("@idRemera", stock.IdRemera);
+                comando.Parameters.AddWithValue("@idColor", stock.IdColor);
+                comando.Parameters.AddWithValue("@idTalle", stock.IdTalle);
+
+                int cantidadRegistros = (int)comando.ExecuteScalar();
+
+                if (cantidadRegistros > 0)
+                {
+                    string consultaUpdate = "UPDATE Stock SET Cantidad = @cantidad WHERE IdRemera = @idRemera AND IdColor = @idColor AND IdTalle = @idTalle";
+                    comando.CommandText = consultaUpdate;
+                    comando.Parameters.Clear();
+                    comando.Parameters.AddWithValue("@cantidad", stock.Cantidad);
+                    comando.Parameters.AddWithValue("@idRemera", stock.IdRemera);
+                    comando.Parameters.AddWithValue("@idColor", stock.IdColor);
+                    comando.Parameters.AddWithValue("@idTalle", stock.IdTalle);
+
+                    comando.ExecuteNonQuery();
+                }
+                else
+                {
+                    string consultaInsert = "INSERT INTO Stock (IdRemera, IdColor, IdTalle, Cantidad) VALUES (@idRemera, @idColor, @idTalle, @cantidad)";
+                    comando.CommandText = consultaInsert;
+                    comando.Parameters.Clear();
+                    comando.Parameters.AddWithValue("@idRemera", stock.IdRemera);
+                    comando.Parameters.AddWithValue("@idColor", stock.IdColor);
+                    comando.Parameters.AddWithValue("@idTalle", stock.IdTalle);
+                    comando.Parameters.AddWithValue("@cantidad", stock.Cantidad);
+
+                    comando.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+        }
         public List<Color> ObtenerColoresPorRemera(int idRemera)
         {
             List<Color> colores = new List<Color>();
@@ -103,7 +156,17 @@ namespace negocio
             }
         }
 
+        public List<Color> ObtenerTodosColores()
+        {
+            ColorNegocio colorNegocio = new ColorNegocio();
+            return colorNegocio.Listar();
+        }
 
+        public List<Talle> ObtenerTodosTalles()
+        {
+            TalleNegocio talleNegocio = new TalleNegocio();
+            return talleNegocio.Listar();
+        }
 
         public int ObtenerStock(int idRemera, int idColor, int idTalle)
         {
@@ -118,13 +181,15 @@ namespace negocio
                 conexion.Open();
 
                 string consulta = "SELECT Cantidad FROM Stock " +
-                                  "WHERE IdRemera = " + idRemera +
-                                  " AND IdColor = " + idColor +
-                                  " AND IdTalle = " + idTalle;
+                                  "WHERE IdRemera = @idRemera AND IdColor = @idColor AND IdTalle = @idTalle";
 
                 comando.CommandType = System.Data.CommandType.Text;
                 comando.CommandText = consulta;
                 comando.Connection = conexion;
+
+                comando.Parameters.AddWithValue("@idRemera", idRemera);
+                comando.Parameters.AddWithValue("@idColor", idColor);
+                comando.Parameters.AddWithValue("@idTalle", idTalle);
 
                 lector = comando.ExecuteReader();
 

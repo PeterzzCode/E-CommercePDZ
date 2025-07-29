@@ -180,30 +180,39 @@ namespace negocio
                 conexion.Close();
             }
         }
-        public void Agregar(Remera remera)
+        public int Agregar(Remera remera)
         {
+            int idRemeraInsertada = 0;
             SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString);
 
             try
             {
                 string consulta = "INSERT INTO Remera (Nombre, Descripcion, Precio, Activo) " +
-                               "VALUES ('" + remera.Nombre + "', '" + remera.Descripcion + "', " + remera.Precio.ToString().Replace(',', '.') + ", " + (remera.Activo ? 1 : 0) + ")";
+                                  "VALUES ('" + remera.Nombre + "', '" + remera.Descripcion + "', " +
+                                  remera.Precio.ToString().Replace(',', '.') + ", " + (remera.Activo ? 1 : 0) + "); " +
+                                  "SELECT CAST(SCOPE_IDENTITY() AS int);";
 
-                SqlCommand comando = new SqlCommand(consulta, conexion);
+                SqlCommand comando = new SqlCommand();
+                comando.CommandType = System.Data.CommandType.Text;
+                comando.CommandText = consulta;
+                comando.Connection = conexion;
                 conexion.Open();
-                comando.ExecuteNonQuery();
+                idRemeraInsertada = (int)comando.ExecuteScalar();
                 conexion.Close();
 
                 if (remera.UrlImagen != null && remera.UrlImagen.Count > 0)
                 {
                     string descripcionImg = remera.UrlImagen[0].DescripcionUrlImagen;
 
-                    if (descripcionImg != null && descripcionImg.Length > 0)
+                    if (!string.IsNullOrEmpty(descripcionImg))
                     {
                         string consultaImg = "INSERT INTO UrlImagen (DescripcionUrlImagen, IdRemera) " +
-                                          "VALUES ('" + descripcionImg + "', (SELECT MAX(Id) FROM Remera))";
+                                             "VALUES ('" + descripcionImg + "', " + idRemeraInsertada + ")";
 
-                        SqlCommand comandoImg = new SqlCommand(consultaImg, conexion);
+                        SqlCommand comandoImg = new SqlCommand();
+                        comandoImg.CommandType = System.Data.CommandType.Text;
+                        comandoImg.CommandText = consultaImg;
+                        comandoImg.Connection = conexion;
                         conexion.Open();
                         comandoImg.ExecuteNonQuery();
                         conexion.Close();
@@ -216,8 +225,10 @@ namespace negocio
             }
             finally
             {
-                    conexion.Close();
+                conexion.Close();
             }
+
+            return idRemeraInsertada;
         }
 
         public void Modificar(Remera remera)

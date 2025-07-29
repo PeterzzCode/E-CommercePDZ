@@ -31,6 +31,18 @@ namespace E_CommercePDZ
             }
         }
 
+        public List<Stock> ListaStock
+        {
+            get
+            {
+                return Session["ListaStock"] != null ? (List<Stock>)Session["ListaStock"] : new List<Stock>();
+            }
+            set
+            {
+                Session["ListaStock"] = value;
+            }
+        }
+
         private void CargarRemeras()
         {
             RemeraNegocio negocio = new RemeraNegocio();
@@ -66,6 +78,8 @@ namespace E_CommercePDZ
                 else
                     txtUrlImagen.Text = "";
 
+                CargarColorYTalle();
+
                 pnlAgregarEditar.Visible = true;
             }
         }
@@ -75,9 +89,10 @@ namespace E_CommercePDZ
             try
             {
                 RemeraNegocio negocio = new RemeraNegocio();
+                StockNegocio stockNegocio = new StockNegocio();
                 Remera remera = new Remera();
 
-                if (hfIdRemera.Value != null && hfIdRemera.Value != "")
+                if (!string.IsNullOrEmpty(hfIdRemera.Value))
                     remera.Id = int.Parse(hfIdRemera.Value);
                 else
                     remera.Id = 0;
@@ -88,22 +103,36 @@ namespace E_CommercePDZ
                 remera.Activo = chkActivo.Checked;
 
                 remera.UrlImagen = new List<UrlImagen>()
-                {
-                    new UrlImagen() { DescripcionUrlImagen = txtUrlImagen.Text }
-                };
+        {
+            new UrlImagen() { DescripcionUrlImagen = txtUrlImagen.Text }
+        };
+
+                int idRemeraGuardada;
 
                 if (remera.Id == 0)
                 {
-                    negocio.Agregar(remera);
+                    idRemeraGuardada = negocio.Agregar(remera);
+                    remera.Id = idRemeraGuardada;
                 }
                 else
                 {
                     negocio.Modificar(remera);
+                    idRemeraGuardada = remera.Id;
+                }
+
+                foreach (Stock s in ListaStock)
+                {
+                    s.IdRemera = idRemeraGuardada;
+                    stockNegocio.GuardarStock(s);
                 }
 
                 pnlAgregarEditar.Visible = false;
                 CargarRemeras();
                 LimpiarFormulario();
+
+                ListaStock = new List<Stock>();
+                gvStock.DataSource = null;
+                gvStock.DataBind();
             }
             catch (Exception)
             {
@@ -117,6 +146,64 @@ namespace E_CommercePDZ
             LimpiarFormulario();
         }
 
+        protected void btnNuevaRemera_Click(object sender, EventArgs e)
+        {
+            LimpiarFormulario();
+            CargarColorYTalle();
+            pnlAgregarEditar.Visible = true;
+        }
+
+        protected void CargarColorYTalle()
+        {
+            ColorNegocio colorNegocio = new ColorNegocio();
+            ddlColor.DataSource = colorNegocio.Listar();
+            ddlColor.DataTextField = "Descripcion";
+            ddlColor.DataValueField = "Id";
+            ddlColor.DataBind();
+
+            TalleNegocio talleNegocio = new TalleNegocio();
+            ddlTalle.DataSource = talleNegocio.Listar();
+            ddlTalle.DataTextField = "Descripcion";
+            ddlTalle.DataValueField = "Id";
+            ddlTalle.DataBind();
+        }
+        protected void btnAgregarStock_Click(object sender, EventArgs e)
+        {
+            int idColor = int.Parse(ddlColor.SelectedValue);
+            int idTalle = int.Parse(ddlTalle.SelectedValue);
+            int cantidad = int.Parse(txtCantidad.Text);
+
+            List<Stock> stock = ListaStock;
+
+            if (!stock.Any(s => s.IdColor == idColor && s.IdTalle == idTalle))
+            {
+                Stock nuevo = new Stock
+                {
+                    IdColor = idColor,
+                    IdTalle = idTalle,
+                    Cantidad = cantidad,
+                    Color = new Color(idColor, ddlColor.SelectedItem.Text),
+                    Talle = new Talle(idTalle, ddlTalle.SelectedItem.Text)
+                };
+                stock.Add(nuevo);
+                ListaStock = stock;
+                gvStock.DataSource = stock.Select(s => new { Color = s.Color.Descripcion, Talle = s.Talle.Descripcion, s.Cantidad });
+                gvStock.DataBind();
+            }
+        }
+        protected void gvStock_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Eliminar")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                List<Stock> stock = ListaStock;
+                stock.RemoveAt(index);
+                ListaStock = stock;
+
+                gvStock.DataSource = stock.Select(s => new { Color = s.Color.Descripcion, Talle = s.Talle.Descripcion, s.Cantidad });
+                gvStock.DataBind();
+            }
+        }
         private void LimpiarFormulario()
         {
             hfIdRemera.Value = "";

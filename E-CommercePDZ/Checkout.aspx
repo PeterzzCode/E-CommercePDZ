@@ -40,10 +40,30 @@
 
             <p class="fw-bold fs-5">Total: $<asp:Label ID="lblTotal" runat="server" /></p>
 
-            <h4 class="mt-4">Confirmar datos</h4>
+            <h4 class="mt-4">Método de pago</h4>
+            <asp:DropDownList ID="ddlMetodoPago" runat="server" CssClass="form-select mb-3">
+                <asp:ListItem Text="Transferencia" Value="Transferencia" />
+                <asp:ListItem Text="Efectivo" Value="Efectivo" />
+            </asp:DropDownList>
+            
+            <h4>Envío</h4>
+            <asp:RadioButtonList ID="rblEnvio" runat="server" CssClass="mb-3" AutoPostBack="true" OnSelectedIndexChanged="rblEnvio_SelectedIndexChanged">
+                <asp:ListItem Text="Envío a domicilio" Value="envio" />
+                <asp:ListItem Text="Retiro en tienda" Value="retiro" />
+            </asp:RadioButtonList>
+            
+            <asp:Panel ID="pnlDireccion" runat="server" Visible="false" CssClass="mb-3">
+                <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" placeholder="Ingresá tu dirección completa"></asp:TextBox>
+            </asp:Panel>
+            
+            <asp:Panel ID="pnlRetiro" runat="server" Visible="false" CssClass="mb-3 text-success">
+                <p>Podés retirar tu compra en: Pilar, Calle 123</p>
+            </asp:Panel>
+            
             <asp:Label ID="lblMensaje" runat="server" CssClass="text-danger" />
-
+            
             <asp:Button ID="btnConfirmarCompra" runat="server" Text="Confirmar compra" CssClass="btn btn-dark mt-3" OnClick="btnConfirmarCompra_Click" />
+
         </div>
     </div>
 </asp:Content>

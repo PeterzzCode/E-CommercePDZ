@@ -18,6 +18,9 @@ create TABLE Venta (
     Fecha [datetime] NOT NULL,
     Total [decimal](18, 2) NOT NULL,
     Estado [nvarchar](50) NOT NULL,
+	MetodoPago [varchar] (100) NOT NULL,
+	MetodoEnvio [varchar] (100)NOT NULL,
+	DireccionEnvio [varchar] (100),
     FOREIGN KEY (IdUsuario) REFERENCES Usuario(Id)
 );
 
@@ -173,8 +176,18 @@ SELECT
 FROM Remera R
 JOIN UrlImagen U ON R.Id = U.IdRemera;
 
-delete from Usuario
-WHERE Email = 'cliente5@pdz.com';
+delete from Remera
+WHERE Id = 22;
+
+DECLARE @idRemera INT = 25; 
+
+DELETE FROM Stock WHERE IdRemera = @idRemera;
+
+DELETE FROM UrlImagen WHERE IdRemera = @idRemera;
+
+-- DELETE FROM DetalleVenta WHERE IdProducto = @idRemera;
+
+DELETE FROM Remera WHERE Id = @idRemera;
 
 Update Usuario
 Set Email = 'pedroadominguez@hotmail.com'
@@ -186,4 +199,4 @@ VALUES ('admin1@pdz.com', 'admin123', 'Pedro', 'Dominguez', '2001-06-27', 'https
 INSERT INTO [dbo].[Usuario] (Email, Pass, Nombre, Apellido, FechaNacimiento, ImagenPerfil, Admin)
 VALUES ('cliente1@pdz.com', 'cliente123', 'Carlos', 'Gomez', '1995-09-15', 'https://http2.mlstatic.com/D_NQ_NP_924266-MLA86724494807_062025-O.webp', 0);
 
-select * from Color
+select * from Remera

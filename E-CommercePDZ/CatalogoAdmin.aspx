@@ -5,7 +5,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <h2>Catalogo Admin - Editar</h2>
+    <h2>Catalogo Admin - Editar y Agregar</h2>
+
+    <asp:Button ID="btnNuevaRemera" runat="server" Text="Agregar nueva remera" CssClass="btn btn-success mb-3" OnClick="btnNuevaRemera_Click" />
 
     <asp:Panel ID="pnlAgregarEditar" runat="server" CssClass="mb-4 border p-3">
         <asp:HiddenField ID="hfIdRemera" runat="server" />
@@ -29,6 +31,32 @@
             <label for="txtUrlImagen" class="form-label">URL Imagen Principal</label>
             <asp:TextBox ID="txtUrlImagen" runat="server" CssClass="form-control" />
         </div>
+
+        <asp:Panel ID="pnlStock" runat="server" CssClass="mb-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <asp:DropDownList ID="ddlColor" runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <asp:DropDownList ID="ddlTalle" runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control" placeholder="Cantidad" />
+                </div>
+                <div class="col-md-3">
+                    <asp:Button ID="btnAgregarStock" runat="server" Text="Agregar" CssClass="btn btn-primary w-100" OnClick="btnAgregarStock_Click" />
+                </div>
+            </div>
+        
+            <asp:GridView ID="gvStock" runat="server" AutoGenerateColumns="False" CssClass="table mt-3" OnRowCommand="gvStock_RowCommand">
+                <Columns>
+                    <asp:BoundField DataField="Color" HeaderText="Color" />
+                    <asp:BoundField DataField="Talle" HeaderText="Talle" />
+                    <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
+                    <asp:ButtonField CommandName="Eliminar" Text="Eliminar" ButtonType="Button" />
+                </Columns>
+            </asp:GridView>
+        </asp:Panel>
 
         <div class="mb-3 form-check">
             <asp:CheckBox ID="chkActivo" runat="server" CssClass="form-check-input" />

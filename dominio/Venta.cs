@@ -16,6 +16,9 @@ namespace dominio
         public DateTime Fecha { get; set; }
         public decimal Total { get; set; }
         public string Estado { get; set; }
+        public string MetodoPago { get; set; }
+        public string MetodoEnvio { get; set; }
+        public string DireccionEnvio { get; set; }
         public List<DetalleVenta> Detalles { get; set; }
     }
 }

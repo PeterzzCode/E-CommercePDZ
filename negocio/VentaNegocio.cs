@@ -19,14 +19,16 @@ namespace negocio
 
             try
             {
-                string consultaVenta = "INSERT INTO Venta (IdUsuario, NombreCliente, Fecha, Total, Estado) " +
-                                       "OUTPUT INSERTED.Id " +
-                                       "VALUES (" +
-                                       venta.IdUsuario + ", '" +
-                                       venta.NombreCliente + "', '" +
-                                       venta.Fecha.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
-                                       venta.Total.ToString().Replace(",", ".") + ", '" +
-                                       venta.Estado + "')";
+                string consultaVenta = "INSERT INTO Venta (IdUsuario, Fecha, Total, Estado, MetodoPago, MetodoEnvio, DireccionEnvio) " +
+                       "OUTPUT INSERTED.Id " +
+                       "VALUES (" +
+                       venta.IdUsuario + ", '" +
+                       venta.Fecha.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                       venta.Total.ToString().Replace(",", ".") + ", '" +
+                       venta.Estado + "', '" +
+                       venta.MetodoPago + "', '" +
+                       venta.MetodoEnvio + "', '" +
+                       venta.DireccionEnvio + "')";
 
                 SqlCommand comandoVenta = new SqlCommand();
                 comandoVenta.Connection = conexion;

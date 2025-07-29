@@ -41,13 +41,13 @@ namespace E_CommercePDZ
             rptImagenes.DataSource = remera.UrlImagen;
             rptImagenes.DataBind();
 
-            List<Color> colores = negocioStock.ObtenerColoresPorRemera(idRemera);
+            List<Color> colores = negocioStock.ObtenerTodosColores();
             ddlColor.DataSource = colores;
             ddlColor.DataTextField = "Descripcion";
             ddlColor.DataValueField = "Id";
             ddlColor.DataBind();
 
-            List<Talle> talles = negocioStock.ObtenerTallesPorRemera(idRemera);
+            List<Talle> talles = negocioStock.ObtenerTodosTalles();
             ddlTalle.DataSource = talles;
             ddlTalle.DataTextField = "Descripcion";
             ddlTalle.DataValueField = "Id";
@@ -68,21 +68,21 @@ namespace E_CommercePDZ
 
         private void ActualizarStock()
         {
-            int idRemera = int.Parse(lblId.Text);
-            int idColor = int.Parse(ddlColor.SelectedValue);
-            int idTalle = int.Parse(ddlTalle.SelectedValue);
-
-            StockNegocio negocioStock = new StockNegocio();
-            int stock = negocioStock.ObtenerStock(idRemera, idColor, idTalle);
-
-            lblStock.Text = stock.ToString();
-
-            if (stock > 0)
+            try
             {
-                txtCantidad.Text = "1";
+                int idRemera = int.Parse(lblId.Text);
+                int idColor = int.Parse(ddlColor.SelectedValue);
+                int idTalle = int.Parse(ddlTalle.SelectedValue);
+
+                StockNegocio negocioStock = new StockNegocio();
+                int stock = negocioStock.ObtenerStock(idRemera, idColor, idTalle);
+
+                lblStock.Text = stock.ToString();
+                txtCantidad.Text = stock > 0 ? "1" : "0";
             }
-            else
+            catch
             {
+                lblStock.Text = "0";
                 txtCantidad.Text = "0";
             }
         }
