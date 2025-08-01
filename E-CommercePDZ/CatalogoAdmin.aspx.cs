@@ -308,7 +308,7 @@ namespace E_CommercePDZ
 
         protected void rptEditarImagenes_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            int index = (int)e.CommandArgument;
+            int index = Convert.ToInt32(e.CommandArgument);
 
             if (e.CommandName == "Editar")
             {
