@@ -15,22 +15,40 @@
         <div class="mb-3">
             <label for="txtNombre" class="form-label">Nombre</label>
             <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
+            <asp:Label ID="lblErrorNombre" runat="server" CssClass="text-danger"></asp:Label>
         </div>
 
         <div class="mb-3">
             <label for="txtDescripcion" class="form-label">Descripción</label>
             <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="3" />
+            <asp:Label ID="lblErrorDescripcion" runat="server" CssClass="text-danger"></asp:Label>
         </div>
 
         <div class="mb-3">
             <label for="txtPrecio" class="form-label">Precio</label>
             <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" />
+            <asp:Label ID="lblErrorPrecio" runat="server" CssClass="text-danger"></asp:Label>
         </div>
 
-        <div class="mb-3">
-            <label for="txtUrlImagen" class="form-label">URL Imagen Principal</label>
-            <asp:TextBox ID="txtUrlImagen" runat="server" CssClass="form-control" />
-        </div>
+        <asp:Panel ID="pnlImagenes" runat="server" CssClass="mb-4">
+            <h5>Imágenes</h5>
+            <asp:Repeater ID="rptEditarImagenes" runat="server" OnItemCommand="rptEditarImagenes_ItemCommand">
+                <ItemTemplate>
+                    <div class="input-group mb-2">
+                        <asp:TextBox ID="txtEditarUrlImagen" runat="server" CssClass="form-control"
+                            ReadOnly="true" Text='<%# Eval("DescripcionUrlImagen") %>' />
+                        <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Container.ItemIndex %>' />
+                        <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CommandName="Guardar" CommandArgument='<%# Container.ItemIndex %>' Visible="false" />
+                        <asp:Button ID="btnEliminarImagen" runat="server" CssClass="btn btn-danger" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Container.ItemIndex %>' />
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+            <asp:Label ID="lblErrorImagenes" runat="server" CssClass="text-danger"></asp:Label>
+
+            <asp:TextBox ID="txtNuevaUrlImagen" runat="server" CssClass="form-control mb-2" Placeholder="Nueva URL de imagen" />
+            <asp:Button ID="btnAgregarImagen" runat="server" CssClass="btn btn-primary mb-3" Text="Agregar Imagen"
+                OnClick="btnAgregarImagen_Click" />
+        </asp:Panel>
 
         <asp:Panel ID="pnlStock" runat="server" CssClass="mb-4">
             <div class="row">
@@ -47,7 +65,6 @@
                     <asp:Button ID="btnAgregarStock" runat="server" Text="Agregar" CssClass="btn btn-primary w-100" OnClick="btnAgregarStock_Click" />
                 </div>
             </div>
-        
             <asp:GridView ID="gvStock" runat="server" AutoGenerateColumns="False" CssClass="table mt-3" OnRowCommand="gvStock_RowCommand">
                 <Columns>
                     <asp:BoundField DataField="Color" HeaderText="Color" />
@@ -102,6 +119,8 @@
 
                                 <asp:Button ID="btnEditar" runat="server" CommandName="Editar" CommandArgument='<%# Eval("Id") %>'
                                     CssClass="btn btn-warning" Text="Editar" />
+                                <asp:Button ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>'
+                                    CssClass="btn btn-danger ms-2" Text="Eliminar" />
                             </div>
                         </div>
                     </div>

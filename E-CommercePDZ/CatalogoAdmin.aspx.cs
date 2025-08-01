@@ -2,6 +2,7 @@
 using negocio;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -9,28 +10,29 @@ using System.Web.UI.WebControls;
 
 namespace E_CommercePDZ
 {
-	public partial class CatalogoAdmin : System.Web.UI.Page
-	{
+    public partial class CatalogoAdmin : System.Web.UI.Page
+    {
         protected void Page_Load(object sender, EventArgs e)
         {
             Usuario usuario = (Usuario)Session["usuario"];
-                if (usuario == null)
-                {
-                    Response.Redirect("Login.aspx");
-                    return;
-                }
-                if (usuario.Admin != true)
-                {
-                    Response.Redirect("Error.aspx");
-                    return;
-                }
+            if (usuario == null)
+            {
+                Response.Redirect("Login.aspx");
+                return;
+            }
+            if (!usuario.Admin)
+            {
+                Response.Redirect("Error.aspx");
+                return;
+            }
+
             if (!IsPostBack)
             {
                 CargarRemeras();
                 pnlAgregarEditar.Visible = false;
             }
         }
-
+        
         public List<Stock> ListaStock
         {
             get
@@ -40,6 +42,18 @@ namespace E_CommercePDZ
             set
             {
                 Session["ListaStock"] = value;
+            }
+        }
+
+        public List<UrlImagen> ListaImagenes
+        {
+            get
+            {
+                return Session["ListaImagenes"] != null ? (List<UrlImagen>)Session["ListaImagenes"] : new List<UrlImagen>();
+            }
+            set
+            {
+                Session["ListaImagenes"] = value;
             }
         }
 
@@ -58,6 +72,22 @@ namespace E_CommercePDZ
                 int id = int.Parse(e.CommandArgument.ToString());
                 CargarFormulario(id);
             }
+            else if (e.CommandName == "Eliminar")
+            {
+                try
+                {
+                    int id = (int)e.CommandArgument;
+                    RemeraNegocio negocio = new RemeraNegocio();
+
+                    negocio.Eliminar(id);
+
+                    CargarRemeras();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
         }
 
         private void CargarFormulario(int id)
@@ -73,10 +103,9 @@ namespace E_CommercePDZ
                 txtPrecio.Text = remera.Precio.ToString();
                 chkActivo.Checked = remera.Activo;
 
-                if (remera.UrlImagen != null && remera.UrlImagen.Count > 0)
-                    txtUrlImagen.Text = remera.UrlImagen[0].DescripcionUrlImagen;
-                else
-                    txtUrlImagen.Text = "";
+                ListaImagenes = remera.UrlImagen ?? new List<UrlImagen>();
+                rptEditarImagenes.DataSource = ListaImagenes;
+                rptEditarImagenes.DataBind();
 
                 CargarColorYTalle();
 
@@ -86,6 +115,60 @@ namespace E_CommercePDZ
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            lblErrorNombre.Text = "";
+            lblErrorDescripcion.Text = "";
+            lblErrorPrecio.Text = "";
+            lblErrorImagenes.Text = "";
+
+            bool esValido = true;
+
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            {
+                lblErrorNombre.Text = "El nombre es obligatorio.";
+                esValido = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
+            {
+                lblErrorDescripcion.Text = "La descripción es obligatoria.";
+                esValido = false;
+            }
+
+            float precio = 0;
+            try
+            {
+                precio = float.Parse(txtPrecio.Text);
+
+                if (precio <= 0)
+                {
+                    lblErrorPrecio.Text = "Ingrese un precio válido (mayor a 0).";
+                    esValido = false;
+                }
+            }
+            catch
+            {
+                lblErrorPrecio.Text = "Ingrese un precio numérico válido.";
+                esValido = false;
+            }
+
+            List<UrlImagen> imagenes = new List<UrlImagen>();
+            foreach (RepeaterItem item in rptEditarImagenes.Items)
+            {
+                TextBox txtUrl = item.FindControl("txtEditarUrlImagen") as TextBox;
+                if (txtUrl != null && !string.IsNullOrWhiteSpace(txtUrl.Text))
+                {
+                    imagenes.Add(new UrlImagen { DescripcionUrlImagen = txtUrl.Text.Trim() });
+                }
+            }
+            if (imagenes.Count == 0)
+            {
+                lblErrorImagenes.Text = "Debe haber al menos una imagen cargada.";
+                esValido = false;
+            }
+
+            if (!esValido)
+                return;
+
             try
             {
                 RemeraNegocio negocio = new RemeraNegocio();
@@ -97,15 +180,11 @@ namespace E_CommercePDZ
                 else
                     remera.Id = 0;
 
-                remera.Nombre = txtNombre.Text;
-                remera.Descripcion = txtDescripcion.Text;
-                remera.Precio = float.Parse(txtPrecio.Text);
+                remera.Nombre = txtNombre.Text.Trim();
+                remera.Descripcion = txtDescripcion.Text.Trim();
+                remera.Precio = precio;
                 remera.Activo = chkActivo.Checked;
-
-                remera.UrlImagen = new List<UrlImagen>()
-        {
-            new UrlImagen() { DescripcionUrlImagen = txtUrlImagen.Text }
-        };
+                remera.UrlImagen = imagenes;
 
                 int idRemeraGuardada;
 
@@ -167,6 +246,7 @@ namespace E_CommercePDZ
             ddlTalle.DataValueField = "Id";
             ddlTalle.DataBind();
         }
+
         protected void btnAgregarStock_Click(object sender, EventArgs e)
         {
             int idColor = int.Parse(ddlColor.SelectedValue);
@@ -187,31 +267,112 @@ namespace E_CommercePDZ
                 };
                 stock.Add(nuevo);
                 ListaStock = stock;
-                gvStock.DataSource = stock.Select(s => new { Color = s.Color.Descripcion, Talle = s.Talle.Descripcion, s.Cantidad });
-                gvStock.DataBind();
-            }
-        }
-        protected void gvStock_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName == "Eliminar")
-            {
-                int index = Convert.ToInt32(e.CommandArgument);
-                List<Stock> stock = ListaStock;
-                stock.RemoveAt(index);
-                ListaStock = stock;
 
                 gvStock.DataSource = stock.Select(s => new { Color = s.Color.Descripcion, Talle = s.Talle.Descripcion, s.Cantidad });
                 gvStock.DataBind();
             }
         }
+
+        protected void gvStock_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Eliminar")
+            {
+                int index = (int)e.CommandArgument;
+                List<Stock> stock = ListaStock;
+                if (index >= 0)
+                {
+                    stock.RemoveAt(index);
+                    ListaStock = stock;
+
+                    gvStock.DataSource = stock.Select(s => new { Color = s.Color.Descripcion, Talle = s.Talle.Descripcion, s.Cantidad });
+                    gvStock.DataBind();
+                }
+            }
+        }
+
+        protected void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtNuevaUrlImagen.Text))
+            {
+                if (ListaImagenes == null)
+                    ListaImagenes = new List<UrlImagen>();
+
+                ListaImagenes.Add(new UrlImagen { DescripcionUrlImagen = txtNuevaUrlImagen.Text.Trim() });
+
+                rptEditarImagenes.DataSource = ListaImagenes.ToList(); 
+                rptEditarImagenes.DataBind();
+
+                txtNuevaUrlImagen.Text = "";
+            }
+        }
+
+        protected void rptEditarImagenes_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            int index = (int)e.CommandArgument;
+
+            if (e.CommandName == "Editar")
+            {
+                TextBox txtUrl = (TextBox)e.Item.FindControl("txtEditarUrlImagen");
+                Button btnEditar = (Button)e.Item.FindControl("btnEditar");
+                Button btnGuardar = (Button)e.Item.FindControl("btnGuardar");
+
+                if (txtUrl != null && btnEditar != null && btnGuardar != null)
+                {
+                    txtUrl.ReadOnly = false;
+                    btnEditar.Visible = false;
+                    btnGuardar.Visible = true;
+                }
+            }
+            else if (e.CommandName == "Guardar")
+            {
+                TextBox txtUrl = (TextBox)e.Item.FindControl("txtEditarUrlImagen");
+                Button btnEditar = (Button)e.Item.FindControl("btnEditar");
+                Button btnGuardar = (Button)e.Item.FindControl("btnGuardar");
+
+                if (txtUrl != null && btnEditar != null && btnGuardar != null)
+                {
+                    List<UrlImagen> lista = ListaImagenes;
+
+                    if (index >= 0 && index < lista.Count)
+                    {
+                        lista[index].DescripcionUrlImagen = txtUrl.Text.Trim();
+                        ListaImagenes = lista;
+                    }
+
+                    txtUrl.ReadOnly = true;
+                    btnEditar.Visible = true;
+                    btnGuardar.Visible = false;
+
+                    rptEditarImagenes.DataSource = ListaImagenes;
+                    rptEditarImagenes.DataBind();
+                }
+            }
+            else if (e.CommandName == "Eliminar")
+            {
+                if (ListaImagenes != null && ListaImagenes.Count > index)
+                {
+                    ListaImagenes.RemoveAt(index);
+                    rptEditarImagenes.DataSource = ListaImagenes;
+                    rptEditarImagenes.DataBind();
+                }
+            }
+        }
+
         private void LimpiarFormulario()
         {
             hfIdRemera.Value = "";
             txtNombre.Text = "";
             txtDescripcion.Text = "";
             txtPrecio.Text = "";
-            txtUrlImagen.Text = "";
             chkActivo.Checked = false;
+
+            ListaStock = new List<Stock>();
+            gvStock.DataSource = null;
+            gvStock.DataBind();
+
+            ListaImagenes = new List<UrlImagen>();
+            rptEditarImagenes.DataSource = null;
+            rptEditarImagenes.DataBind();
         }
     }
 }

@@ -104,11 +104,11 @@ go
 CREATE TABLE [dbo].[UrlImagen](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[IdRemera] [int] foreign key references Remera(Id) NOT NULL,
-	[UrlImagen] [varchar](500) NOT NULL
+	DescripcionUrlImagen [varchar](500) NOT NULL
 	CONSTRAINT [PK_UrlImagen] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
-)
+))
 
 go
 
@@ -151,20 +151,20 @@ END
 
 go
 
-INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (1, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño1');
-INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (1, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño1.1');
-INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (2, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño2');
-INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (2, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño2.2');
-INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (3, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño3');
-INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (3, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño3.3');
-INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (4, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño4');
-INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (4, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño4.4');
-INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (5, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño5');
-INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (5, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño5.5');
-INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (6, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño6');
-INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (6, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño6.6');
-INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (7, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño7');
-INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (7, 'C:\Users\pedro\Documents\GitHub\E-CommercePDZ\E-CommercePDZ\Images\Catalogo\Diseño7.7');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (1, '/Images/Catalogo/Diseño1.jpg');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (1, '/Images/Catalogo/Diseño1.1.jpg');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (2, '/Images/Catalogo/Diseño2.jpg');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (2, '/Images/Catalogo/Diseño2.2.jpg');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (3, '/Images/Catalogo/Diseño3.jpg');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (3, '/Images/Catalogo/Diseño3.3.jpg');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (4, '/Images/Catalogo/Diseño4.jpg');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (4, '/Images/Catalogo/Diseño4.4.jpg');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (5, '/Images/Catalogo/Diseño5.jpg');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (5, '/Images/Catalogo/Diseño5.5.jpg');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (6, '/Images/Catalogo/Diseño6.jpg');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (6, '/Images/Catalogo/Diseño6.6.jpg');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (7, '/Images/Catalogo/Diseño7.jpg');
+INSERT INTO UrlImagen(IdRemera, DescripcionUrlImagen) VALUES (7, '/Images/Catalogo/Diseño7.7.jpg');
 
 SELECT 
     R.Id AS Id, 
@@ -184,8 +184,6 @@ DECLARE @idRemera INT = 25;
 DELETE FROM Stock WHERE IdRemera = @idRemera;
 
 DELETE FROM UrlImagen WHERE IdRemera = @idRemera;
-
--- DELETE FROM DetalleVenta WHERE IdProducto = @idRemera;
 
 DELETE FROM Remera WHERE Id = @idRemera;
 

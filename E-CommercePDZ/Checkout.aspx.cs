@@ -52,12 +52,6 @@ namespace E_CommercePDZ
             List<ItemCarrito> carrito = (List<ItemCarrito>)Session["carrito"];
             Usuario usuario = (Usuario)Session["usuario"];
 
-            if (usuario == null)
-            {
-                Response.Redirect("Login.aspx");
-                return;
-            }
-
             if (rblEnvio.SelectedValue == "envio" && string.IsNullOrWhiteSpace(txtDireccion.Text))
             {
                 lblMensaje.Text = "Por favor, ingresá tu dirección para el envío.";

@@ -110,7 +110,9 @@ namespace E_CommercePDZ
             string nombreCliente = ventaActualizada.NombreCliente;
 
             string asunto = "[PDZ] Actualización de tu pedido";
-            string cuerpo = $"Hola " + nombreCliente + ",\n\nEl estado de tu pedido (Nº" + idVenta + ") ha sido actualizado a:" + nuevoEstado + ".\n\nGracias por elegir PDZ.";
+            string cuerpo = $"Hola " + nombreCliente 
+                + ",\n\nEl estado de tu pedido (Nº" + idVenta + ") ha sido actualizado a:" + nuevoEstado 
+                + ".\n\nGracias por elegir PDZ.";
             EmailUsuario.EnviarEmail(emailCliente, asunto, cuerpo);
 
             CargarVentas();

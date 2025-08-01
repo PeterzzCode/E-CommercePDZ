@@ -182,42 +182,48 @@ namespace negocio
         }
         public int Agregar(Remera remera)
         {
+            SqlConnection conexion = new SqlConnection();
+            SqlCommand comando = new SqlCommand();
             int idRemeraInsertada = 0;
-            SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString);
 
             try
             {
-                string consulta = "INSERT INTO Remera (Nombre, Descripcion, Precio, Activo) " +
-                                  "VALUES ('" + remera.Nombre + "', '" + remera.Descripcion + "', " +
-                                  remera.Precio.ToString().Replace(',', '.') + ", " + (remera.Activo ? 1 : 0) + "); " +
-                                  "SELECT CAST(SCOPE_IDENTITY() AS int);";
+                conexion.ConnectionString = ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString;
+                conexion.Open();
 
-                SqlCommand comando = new SqlCommand();
+                string consulta = @"INSERT INTO Remera (Nombre, Descripcion, Precio, Activo) 
+                            VALUES (@nombre, @descripcion, @precio, @activo);
+                            SELECT CAST(SCOPE_IDENTITY() AS int);";
+
+                comando.Connection = conexion;
                 comando.CommandType = System.Data.CommandType.Text;
                 comando.CommandText = consulta;
-                comando.Connection = conexion;
-                conexion.Open();
+
+                comando.Parameters.AddWithValue("@nombre", remera.Nombre);
+                comando.Parameters.AddWithValue("@descripcion", remera.Descripcion);
+                comando.Parameters.AddWithValue("@precio", remera.Precio);
+                comando.Parameters.AddWithValue("@activo", remera.Activo ? 1 : 0);
+
                 idRemeraInsertada = (int)comando.ExecuteScalar();
-                conexion.Close();
 
                 if (remera.UrlImagen != null && remera.UrlImagen.Count > 0)
                 {
-                    string descripcionImg = remera.UrlImagen[0].DescripcionUrlImagen;
-
-                    if (!string.IsNullOrEmpty(descripcionImg))
+                    foreach (UrlImagen img in remera.UrlImagen)
                     {
-                        string consultaImg = "INSERT INTO UrlImagen (DescripcionUrlImagen, IdRemera) " +
-                                             "VALUES ('" + descripcionImg + "', " + idRemeraInsertada + ")";
-
-                        SqlCommand comandoImg = new SqlCommand();
-                        comandoImg.CommandType = System.Data.CommandType.Text;
-                        comandoImg.CommandText = consultaImg;
-                        comandoImg.Connection = conexion;
-                        conexion.Open();
-                        comandoImg.ExecuteNonQuery();
-                        conexion.Close();
+                        if (!string.IsNullOrEmpty(img.DescripcionUrlImagen))
+                        {
+                            SqlCommand comandoImg = new SqlCommand();
+                            comandoImg.Connection = conexion;
+                            comandoImg.CommandType = System.Data.CommandType.Text;
+                            comandoImg.CommandText = "INSERT INTO UrlImagen (DescripcionUrlImagen, IdRemera) VALUES (@url, @idRemera)";
+                            comandoImg.Parameters.AddWithValue("@url", img.DescripcionUrlImagen);
+                            comandoImg.Parameters.AddWithValue("@idRemera", idRemeraInsertada);
+                            comandoImg.ExecuteNonQuery();
+                        }
                     }
                 }
+
+                return idRemeraInsertada;
             }
             catch (Exception ex)
             {
@@ -227,48 +233,55 @@ namespace negocio
             {
                 conexion.Close();
             }
-
-            return idRemeraInsertada;
         }
 
         public void Modificar(Remera remera)
         {
-            SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString);
+            SqlConnection conexion = new SqlConnection();
+            SqlCommand comando = new SqlCommand();
 
             try
             {
-                string consulta = "UPDATE Remera SET " +
-                               "Nombre = '" + remera.Nombre + "', " +
-                               "Descripcion = '" + remera.Descripcion + "', " +
-                               "Precio = " + remera.Precio.ToString().Replace(',', '.') + ", " +
-                               "Activo = " + (remera.Activo ? 1 : 0) + " " +
-                               "WHERE Id = " + remera.Id;
+                conexion.ConnectionString = ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString;
+                conexion.Open();
 
-                SqlCommand comando = new SqlCommand();
+                string consulta = @"UPDATE Remera SET 
+                            Nombre = @nombre, 
+                            Descripcion = @descripcion, 
+                            Precio = @precio, 
+                            Activo = @activo 
+                            WHERE Id = @id";
+
+                comando.Connection = conexion;
                 comando.CommandType = System.Data.CommandType.Text;
                 comando.CommandText = consulta;
-                comando.Connection = conexion;
-                conexion.Open();
+
+                comando.Parameters.AddWithValue("@nombre", remera.Nombre);
+                comando.Parameters.AddWithValue("@descripcion", remera.Descripcion);
+                comando.Parameters.AddWithValue("@precio", remera.Precio);
+                comando.Parameters.AddWithValue("@activo", remera.Activo ? 1 : 0);
+                comando.Parameters.AddWithValue("@id", remera.Id);
+
                 comando.ExecuteNonQuery();
-                conexion.Close();
+
+                SqlCommand cmdDelete = new SqlCommand("DELETE FROM UrlImagen WHERE IdRemera = @idRemera", conexion);
+                cmdDelete.Parameters.AddWithValue("@idRemera", remera.Id);
+                cmdDelete.ExecuteNonQuery();
 
                 if (remera.UrlImagen != null && remera.UrlImagen.Count > 0)
                 {
-                    string descripcionImg = remera.UrlImagen[0].DescripcionUrlImagen;
-
-                    if (descripcionImg != null && descripcionImg.Length > 0)
+                    foreach (UrlImagen img in remera.UrlImagen)
                     {
-                        string consultaImg = "UPDATE UrlImagen SET " +
-                                          "DescripcionUrlImagen = '" + descripcionImg + "' " +
-                                          "WHERE IdRemera = " + remera.Id;
-
-                        SqlCommand comandoImg = new SqlCommand();
-                        comandoImg.CommandType = System.Data.CommandType.Text;
-                        comandoImg.CommandText = consultaImg;
-                        comandoImg.Connection = conexion;
-                        conexion.Open();
-                        comandoImg.ExecuteNonQuery();
-                        conexion.Close();
+                        if (!string.IsNullOrEmpty(img.DescripcionUrlImagen))
+                        {
+                            SqlCommand comandoImg = new SqlCommand();
+                            comandoImg.Connection = conexion;
+                            comandoImg.CommandType = System.Data.CommandType.Text;
+                            comandoImg.CommandText = "INSERT INTO UrlImagen (DescripcionUrlImagen, IdRemera) VALUES (@url, @idRemera)";
+                            comandoImg.Parameters.AddWithValue("@url", img.DescripcionUrlImagen);
+                            comandoImg.Parameters.AddWithValue("@idRemera", remera.Id);
+                            comandoImg.ExecuteNonQuery();
+                        }
                     }
                 }
             }
@@ -278,7 +291,38 @@ namespace negocio
             }
             finally
             {
-                    conexion.Close();
+                conexion.Close();
+            }
+        }
+        public void Eliminar(int idRemera)
+        {
+            SqlConnection conexion = new SqlConnection();
+            SqlCommand comando = new SqlCommand();
+
+            try
+            {
+                conexion.ConnectionString = ConfigurationManager.ConnectionStrings["PDZ_DB"].ConnectionString;
+                conexion.Open();
+
+                string consulta = @"
+                DELETE FROM Stock WHERE IdRemera = @idRemera;
+                DELETE FROM UrlImagen WHERE IdRemera = @idRemera;
+                DELETE FROM Remera WHERE Id = @idRemera;";
+
+                comando.Connection = conexion;
+                comando.CommandType = System.Data.CommandType.Text;
+                comando.CommandText = consulta;
+
+                comando.Parameters.AddWithValue("@idRemera", idRemera);
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.Close();
             }
         }
     }

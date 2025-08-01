@@ -49,13 +49,10 @@ namespace E_CommercePDZ
 
         protected void rptMisCompras_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
                 Venta venta = (Venta)e.Item.DataItem;
                 Repeater rptDetalles = (Repeater)e.Item.FindControl("rptDetalles");
                 rptDetalles.DataSource = venta.Detalles;
                 rptDetalles.DataBind();
-            }
         }
     }
 }
