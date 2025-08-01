@@ -76,7 +76,7 @@ namespace E_CommercePDZ
             {
                 try
                 {
-                    int id = (int)e.CommandArgument;
+                    int id = Convert.ToInt32(e.CommandArgument);
                     RemeraNegocio negocio = new RemeraNegocio();
 
                     negocio.Eliminar(id);
